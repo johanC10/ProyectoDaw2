@@ -42,12 +42,12 @@
                 <div class="mx-auto bg-gradient-primary rounded-circle d-flex align-items-center justify-content-center mb-4 shadow" style="width: 90px; height: 90px;">
                     <i class="bi bi-mortarboard-fill text-white fs-1"></i>
                 </div>
-                <h1 class="display-5 fw-bold text-dark mb-3">Portal de Inscripción Escolar</h1>
+                <h1 class="display-5 fw-bold text-dark mb-3">Portal de Matricula Escolar</h1>
                 <p class="lead text-secondary mb-4">
                     Bienvenido al sistema oficial del Institut Caparrella. Completa tu matrícula de forma rápida, segura y totalmente digital.
                 </p>
                 <div class="d-grid gap-3 d-sm-flex justify-content-sm-center">
-                    <a href="<?= base_url('auth/estudiante') ?>" class="btn btn-primary btn-lg px-5 py-3 shadow">Comenzar Inscripción</a>
+                    <a href="<?= base_url('auth/estudiante') ?>" class="btn btn-primary btn-lg px-5 py-3 shadow">Comenzar Matricula</a>
                 </div>
             </div>
         </div>
@@ -57,7 +57,7 @@
                 <div class="card h-100 border-0 shadow-sm p-4 card-feature">
                     <div class="text-primary mb-3"><i class="bi bi-clock-history fs-2"></i></div>
                     <h5 class="fw-bold">Proceso Rápido</h5>
-                    <p class="text-muted small mb-0">Completa tu inscripción en solo 10 minutos desde cualquier lugar.</p>
+                    <p class="text-muted small mb-0">Completa tu matricula en solo 10 minutos desde cualquier lugar.</p>
                 </div>
             </div>
             <div class="col-md-6 col-lg-3">
@@ -78,50 +78,72 @@
                 <div class="card h-100 border-0 shadow-sm p-4 card-feature">
                     <div class="text-primary mb-3"><i class="bi bi-envelope-at fs-2"></i></div>
                     <h5 class="fw-bold">Confirmación</h5>
-                    <p class="text-muted small mb-0">Recibirás tu resguardo de matrícula directamente en tu email.</p>
+                    <p class="text-muted small mb-0">Recibirás tu resguardo de matrícula una vez terminado el proceso.</p>
                 </div>
             </div>
         </div>
 
         <div class="row justify-content-center mt-5">
-            <div class="col-md-10 col-lg-8">
-                <div class="card border-0 shadow-sm overflow-hidden">
-                    <div class="card-header bg-white py-3 border-0">
-                        <h2 class="h4 fw-bold mb-0 text-center">Pasos del Proceso</h2>
-                    </div>
-                    <div class="list-group list-group-flush">
-                        <div class="list-group-item d-flex align-items-center py-3 border-light">
-                            <span class="step-number bg-primary text-white rounded-circle me-3">1</span>
-                            <div>Identificación con DNI/NIE y validación de correo.</div>
-                        </div>
-                        <div class="list-group-item d-flex align-items-center py-3 border-light">
-                            <span class="step-number bg-primary text-white rounded-circle me-3">2</span>
-                            <div>Revisión de datos personales del alumno y tutores.</div>
-                        </div>
-                        <div class="list-group-item d-flex align-items-center py-3 border-light">
-                            <span class="step-number bg-primary text-white rounded-circle me-3">3</span>
-                            <div>Carga de DNI/NIE y tarjeta sanitaria.</div>
-                        </div>
-                        <div class="list-group-item d-flex align-items-center py-3 border-light">
-                            <span class="step-number bg-primary text-white rounded-circle me-3">4</span>
-                            <div>Firma de autorización de derechos de imagen.</div>
-                        </div>
-                        <div class="list-group-item d-flex align-items-center py-3 border-light">
-                            <span class="step-number bg-primary text-white rounded-circle me-3">5</span>
-                            <div>Elección de asignaturas optativas y servicios adicionales.</div>
-                        </div>
-                        <div class="list-group-item d-flex align-items-center py-3 border-light">
-                            <span class="step-number bg-primary text-white rounded-circle me-3">6</span>
-                            <div>Aplicación de bonificaciones y adjuntar resguardo de pago.</div>
-                        </div>
-                        <div class="list-group-item d-flex align-items-center py-3 border-light">
-                            <span class="step-number bg-primary text-white rounded-circle me-3">7</span>
-                            <div>Resumen final y confirmación de la matrícula.</div>
-                        </div>
+    <div class="col-md-10 col-lg-8">
+        <div class="card border-0 shadow-sm overflow-hidden">
+            <div class="card-header bg-white py-3 border-0">
+                <h2 class="h4 fw-bold mb-0 text-center">Pasos del Proceso</h2>
+            </div>
+            <div class="list-group list-group-flush">
+                
+                <div class="list-group-item d-flex justify-content-center py-3 px-4 border-light">
+                    <div class="d-flex align-items-center" style="width: 100%; max-width: 500px;">
+                        <span class="step-number bg-primary text-white rounded-circle me-3 flex-shrink-0">1</span>
+                        <div class="flex-grow-1">Identificación con DNI/NIE y validación de correo.</div>
                     </div>
                 </div>
+
+                <div class="list-group-item d-flex justify-content-center py-3 px-4 border-light">
+                    <div class="d-flex align-items-center" style="width: 100%; max-width: 500px;">
+                        <span class="step-number bg-primary text-white rounded-circle me-3 flex-shrink-0">2</span>
+                        <div class="flex-grow-1">Revisión de datos personales del alumno y tutores.</div>
+                    </div>
+                </div>
+
+                <div class="list-group-item d-flex justify-content-center py-3 px-4 border-light">
+                    <div class="d-flex align-items-center" style="width: 100%; max-width: 500px;">
+                        <span class="step-number bg-primary text-white rounded-circle me-3 flex-shrink-0">3</span>
+                        <div class="flex-grow-1">Carga de DNI/NIE y tarjeta sanitaria.</div>
+                    </div>
+                </div>
+
+                <div class="list-group-item d-flex justify-content-center py-3 px-4 border-light">
+                    <div class="d-flex align-items-center" style="width: 100%; max-width: 500px;">
+                        <span class="step-number bg-primary text-white rounded-circle me-3 flex-shrink-0">4</span>
+                        <div class="flex-grow-1">Firma de autorización de derechos de imagen.</div>
+                    </div>
+                </div>
+
+                <div class="list-group-item d-flex justify-content-center py-3 px-4 border-light">
+                    <div class="d-flex align-items-center" style="width: 100%; max-width: 500px;">
+                        <span class="step-number bg-primary text-white rounded-circle me-3 flex-shrink-0">5</span>
+                        <div class="flex-grow-1">Elección de asignaturas optativas y servicios del ciclo.</div>
+                    </div>
+                </div>
+
+                <div class="list-group-item d-flex justify-content-center py-3 px-4 border-light">
+                    <div class="d-flex align-items-center" style="width: 100%; max-width: 500px;">
+                        <span class="step-number bg-primary text-white rounded-circle me-3 flex-shrink-0">6</span>
+                        <div class="flex-grow-1">Aplicación de bonificaciones y adjuntar pago.</div>
+                    </div>
+                </div>
+
+                <div class="list-group-item d-flex justify-content-center py-3 px-4 border-light">
+                    <div class="d-flex align-items-center" style="width: 100%; max-width: 500px;">
+                        <span class="step-number bg-primary text-white rounded-circle me-3 flex-shrink-0">7</span>
+                        <div class="flex-grow-1">Resumen final y confirmación de la matrícula.</div>
+                    </div>
+                </div>
+
             </div>
         </div>
+    </div>
+</div>
     </main>
 
     <footer class="text-center py-4 mt-5 text-muted border-top bg-white">
