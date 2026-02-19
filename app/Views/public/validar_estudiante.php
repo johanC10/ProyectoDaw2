@@ -1,11 +1,10 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Iniciar Sesión - Inscripción</title>
-
+    <title>Validar Sesión</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <style>
@@ -63,16 +62,15 @@
 </head>
 
 <body>
-
     <div class="card shadow login-card">
 
         <div class="icon-circle">
             <img src="<?= base_url('assets/img/logomini.png') ?>" alt="Logo" style="width: 80px; height: 80px; position: absolute;">
         </div>
 
-        <h3 class="text-center fw-bold">Iniciar Sesión</h3>
+        <h3 class="text-center fw-bold">Validar Sesión</h3>
         <p class="text-center text-muted mb-4">
-            Introduce tu DNI y email para acceder
+            Pon tu código de verificación para validar tu sesión como estudiante.
         </p>
 
         <?php if (session()->getFlashdata('error')): ?>
@@ -81,29 +79,23 @@
             </div>
         <?php endif; ?>
 
-        <form action="<?= base_url('login_estudiante') ?>" method="post">
+        <form action="<?= base_url('comprobar_codigo') ?>" method="post">
             <?= csrf_field() ?>
 
             <div class="mb-3">
-                <label class="form-label fw-semibold">DNI/NIE</label>
-                <input type="text" name="dni" class="form-control" required>
-            </div>
-
-            <div class="mb-4">
-                <label class="form-label fw-semibold">Email</label>
-                <input type="email" name="email" class="form-control" required>
+                <label class="form-label fw-semibold">Codigo de Verificación</label>
+                <input type="text" name="codigo" class="form-control" placeholder="XXXXXX" required>
             </div>
 
             <div class="d-grid">
                 <button type="submit" class="btn btn-primary">
-                    Enviar Código de Verificación
+                    Validar Codigo de Verificación
                 </button>
             </div>
+
         </form>
 
-
     </div>
-
 </body>
 
 </html>
