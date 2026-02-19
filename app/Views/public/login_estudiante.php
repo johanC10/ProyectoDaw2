@@ -1,21 +1,109 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login Estudiante</title>
+    <title>Iniciar Sesión - Inscripción</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            background-color: #f4f6f9;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center; 
+        }
+
+        .login-card {
+            max-width: 480px;
+            width: 100%;
+            border-radius: 20px;
+            padding: 40px;
+        }
+
+        .icon-circle {
+            width: 80px;
+            height: 80px;
+            /*background-color: #2d6bdf37;*/
+            background-color: rgba(109, 120, 206, 0.07);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px auto;
+            box-shadow: -2px 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .icon-circle i {
+            font-size: 35px;
+            color: white;
+        }
+
+        .btn-primary {
+            /*background-color: #2d6cdf;*/
+            background-color: #6d79ce;
+            border: none;
+            border-radius: 12px;
+            padding: 12px;
+            font-weight: 500;
+        }
+
+        .btn-primary:hover {
+            background-color: #1f4fb3;
+        }
+
+        input {
+            border-radius: 12px !important;
+            padding: 10px;
+        }
+    </style>
 </head>
+
 <body>
-    
-    <h1>Login Estudiante</h1>
-    <form action="/login_estudiante" method="post">
-        <label for="email">Correo Electrónico:</label>
-        <input type="email" id="email" name="email" required><br><br>
 
-        <label for="password">Contraseña:</label>
-        <input type="password" id="password" name="password" required><br><br>
+    <div class="card shadow login-card">
 
-        <button type="submit">Iniciar Sesión</button>
-    </form>
+        <div class="icon-circle">
+            <i class="bi bi-person-fill"></i>
+            <img src="<?= base_url('assets/img/logomini.png') ?>" alt="Logo" style="width: 80px; height: 80px; position: absolute;">
+        </div>
+
+        <h3 class="text-center fw-bold">Iniciar Sesión</h3>
+        <p class="text-center text-muted mb-4">
+            Introduce tu DNI y email para acceder
+        </p>
+
+        <?php if (session()->getFlashdata('error')): ?>
+            <div class="alert alert-danger">
+                <?= session()->getFlashdata('error') ?>
+            </div>
+        <?php endif; ?>
+
+        <form action="<?= base_url('login_estudiante') ?>" method="post">
+            <?= csrf_field() ?>
+
+            <div class="mb-3">
+                <label class="form-label fw-semibold">DNI/NIE</label>
+                <input type="text" name="dni" class="form-control" placeholder="12345678A" required>
+            </div>
+
+            <div class="mb-4">
+                <label class="form-label fw-semibold">Email</label>
+                <input type="email" name="email" class="form-control" placeholder="tu@email.com" required>
+            </div>
+
+            <div class="d-grid">
+                <button type="submit" class="btn btn-primary">
+                    Enviar Código de Verificación
+                </button>
+            </div>
+
+        </form>
+
+    </div>
+
 </body>
 </html>
