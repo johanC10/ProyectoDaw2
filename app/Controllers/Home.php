@@ -11,6 +11,6 @@ class Home extends BaseController
 
     public function index(): string
     {
-        return view('private/auth/login_gestion');
+        return view('public/login_estudiante');
     }
 }

@@ -43,7 +43,6 @@
         }
 
         .btn-primary {
-            /*background-color: #2d6cdf;*/
             background-color: #6d79ce;
             border: none;
             border-radius: 12px;
@@ -52,7 +51,7 @@
         }
 
         .btn-primary:hover {
-            background-color: #1f4fb3;
+            background-color: #24c87e;
         }
 
         input {
@@ -72,7 +71,7 @@
 
         <h3 class="text-center fw-bold">Iniciar Sesión</h3>
         <p class="text-center text-muted mb-4">
-            Introduce tu DNI y email para acceder
+            Introduce tu DNI y email para acceder al proceso de matricula
         </p>
 
         <?php if (session()->getFlashdata('error')): ?>

@@ -43,7 +43,6 @@
         }
 
         .btn-primary {
-            /*background-color: #2d6cdf;*/
             background-color: #6d79ce;
             border: none;
             border-radius: 12px;
@@ -68,12 +67,12 @@
 
         <div class="icon-circle">
             <i class="bi bi-person-fill"></i>
-            <img src="<?= base_url('public/assets/img/logomini.png') ?>" alt="Logo" style="width: 80px; height: 80px; position: absolute;">
+            <img src="<?= base_url('assets/img/logomini.png') ?>" alt="Logo" style="width: 80px; height: 80px; position: absolute;">
         </div>
 
         <h3 class="text-center fw-bold">Iniciar Sesión</h3>
         <p class="text-center text-muted mb-4">
-            Introduce tu Usuario y Contraseña para acceder
+            Introduce tu usuario y contraseña para acceder al area administrativa
         </p>
 
         <?php if (session()->getFlashdata('error')): ?>
