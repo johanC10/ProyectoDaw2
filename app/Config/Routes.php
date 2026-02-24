@@ -7,6 +7,16 @@ use CodeIgniter\Router\RouteCollection;
  */
 $routes->get('/', 'Home::index');
 
+$routes->get('/auth/estudiante', 'Auth::loginEstudiante');
+$routes->post('/login_estudiante', 'Auth::processLoginEstudiante');
+
+$routes->get('/validar_estudiante', 'Auth::validarEstudiante');
+$routes->post('/comprobar_codigo', 'Auth::comprobarCodigo');
+
+$routes->post('formulario/guardar_paso1', 'Formulario::guardarPaso1');
+
+$routes->get('/logout', 'Auth::logout');
+
 // --- Estudiantes ---
 $routes->get('/auth/estudiante', 'Auth_estudiantes::loginEstudiante');
 $routes->post('/login_estudiante', 'Auth_estudiantes::processLoginEstudiante');
@@ -28,10 +38,10 @@ $routes->group('formulario', ['filter' => 'authEstudiante'], function ($routes) 
     $routes->get('paso5', 'Formulario::paso5');
 
     // --- GRUPO PROTEGIDO DE SECRETARÍA ---
-$routes->group('private', ['filter' => 'authSecretaria'], function ($routes) {
-    $routes->get('dashboard', 'AdminController::dashboard');
-    $routes->get('curso/(:num)', 'AdminController::listarCurso/$1');
-    $routes->get('validacion/(:num)', 'AdminController::validarMatricula/$1');
-    
+    $routes->group('private', ['filter' => 'authSecretaria'], function ($routes) {
+        $routes->get('dashboard', 'AdminController::dashboard');
+        $routes->get('curso/(:num)', 'AdminController::listarCurso/$1');
+        $routes->get('validacion/(:num)', 'AdminController::validarMatricula/$1');
+    });
 });
 });
