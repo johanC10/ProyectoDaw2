@@ -13,6 +13,7 @@ $routes->post('/login_estudiante', 'Auth::processLoginEstudiante');
 $routes->get('/validar_estudiante', 'Auth::validarEstudiante');
 $routes->post('/comprobar_codigo', 'Auth::comprobarCodigo');
 
+$routes->post('formulario/guardar_paso1', 'Formulario::guardarPaso1');
 $routes->get('/logout', 'Auth::logout');
 
 // Grupo protegido
