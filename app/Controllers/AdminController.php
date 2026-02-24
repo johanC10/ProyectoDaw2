@@ -7,7 +7,7 @@ class AdminController extends BaseController
     // Carga la pantalla principal con todas las etapas
     public function dashboard()
     {
-        return view('private/dashboard_formaciones');
+        return view('private/dashboard/dashboard_formaciones');
     }
 
     // Carga la lista de alumnos de un curso en concreto

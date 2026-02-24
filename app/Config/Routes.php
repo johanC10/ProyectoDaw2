@@ -18,6 +18,7 @@ $routes->get('/logout', 'Auth_estudiantes::logout');
 $routes->get('/auth/secretaria', 'Auth_secretaria::loginSecretaria');
 $routes->post('/process_login_secretaria', 'Auth_secretaria::processLoginSecretaria');
 $routes->get('/validar_secretaria', 'Auth_secretaria::validarSecretaria');
+$routes->get('/logout_secretaria', 'Auth_secretaria::logout');
 
 // --- Grupo protegido (Formulario) ---
 $routes->group('formulario', ['filter' => 'authEstudiante'], function ($routes) {
@@ -26,12 +27,11 @@ $routes->group('formulario', ['filter' => 'authEstudiante'], function ($routes) 
     $routes->get('paso3', 'Formulario::paso3');
     $routes->get('paso4', 'Formulario::paso4');
     $routes->get('paso5', 'Formulario::paso5');
-
+});
     // --- GRUPO PROTEGIDO DE SECRETARÍA ---
 $routes->group('private', ['filter' => 'authSecretaria'], function ($routes) {
     $routes->get('dashboard', 'AdminController::dashboard');
     $routes->get('curso/(:num)', 'AdminController::listarCurso/$1');
     $routes->get('validacion/(:num)', 'AdminController::validarMatricula/$1');
     
-});
 });

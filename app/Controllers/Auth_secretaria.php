@@ -18,10 +18,10 @@ class Auth_secretaria extends BaseController
         // 2. HARDCODE: Comprobamos si es nuestro usuario de prueba
         if ($usuario === 'admin' && $password === '1234') {
             
-            // Si es correcto, creamos la sesión "mágica" que pide nuestro Filtro
+            
             session()->set('secretaria_validada', true);
             
-            // Y lo enviamos directamente al panel (saltando el paso del código por ahora)
+            
             return redirect()->to('/private/dashboard');
             
         } else {
@@ -33,7 +33,7 @@ class Auth_secretaria extends BaseController
     // Estas funciones las dejamos preparadas para el futuro
     public function validarSecretaria()
     {
-        return view('private/auth/validar_secretaria');
+        return view('private/gestion/validacion_detalle');
     }
 
     public function comprobarCodigo()
