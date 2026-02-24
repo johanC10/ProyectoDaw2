@@ -44,4 +44,3 @@ $routes->group('formulario', ['filter' => 'authEstudiante'], function ($routes) 
         $routes->get('validacion/(:num)', 'AdminController::validarMatricula/$1');
     });
 });
-});
