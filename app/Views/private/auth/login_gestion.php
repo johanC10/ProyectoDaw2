@@ -4,9 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Iniciar Sesión - Secretaria</title>
+    <title>Iniciar Sesión - Secretaría</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
 
     <style>
         body {
@@ -27,7 +28,6 @@
         .icon-circle {
             width: 80px;
             height: 80px;
-            /*background-color: #2d6bdf37;*/
             background-color: rgba(109, 120, 206, 0.07);
             border-radius: 50%;
             display: flex;
@@ -35,11 +35,12 @@
             justify-content: center;
             margin: 0 auto 20px auto;
             box-shadow: -2px 2px 5px rgba(0, 0, 0, 0.1);
+            position: relative;
         }
 
         .icon-circle i {
             font-size: 35px;
-            color: white;
+            color: #6d79ce; /* Ajustado para que el icono se vea si no carga la imagen */
         }
 
         .btn-primary {
@@ -63,39 +64,38 @@
 
 <body>
 
-    <div class="card shadow login-card">
+    <div class="card shadow login-card border-0">
 
         <div class="icon-circle">
-            <i class="bi bi-person-fill"></i>
-            <img src="<?= base_url('assets/img/logomini.png') ?>" alt="Logo" style="width: 80px; height: 80px; position: absolute;">
+            <img src="<?= base_url('assets/img/logomini.png') ?>" alt="Logo" style="width: 80px; height: 80px; position: absolute; border-radius: 50%;">
         </div>
 
         <h3 class="text-center fw-bold">Iniciar Sesión</h3>
         <p class="text-center text-muted mb-4">
-            Introduce tu usuario y contraseña para acceder al area administrativa
+            Introduce tu usuario y contraseña para acceder al área administrativa
         </p>
 
         <?php if (session()->getFlashdata('error')): ?>
-            <div class="alert alert-danger">
+            <div class="alert alert-danger border-0 rounded-3">
                 <?= session()->getFlashdata('error') ?>
             </div>
         <?php endif; ?>
 
-        <form action="<?= base_url('login_estudiante') ?>" method="post">
+        <form action="<?= base_url('process_login_secretaria') ?>" method="post">
             <?= csrf_field() ?>
 
             <div class="mb-3">
                 <label class="form-label fw-semibold">Usuario</label>
-                <input type="text" name="dni" class="form-control" placeholder="12345678A" required>
+                <input type="text" name="usuario" class="form-control" placeholder="Nombre de usuario" required>
             </div>
 
             <div class="mb-4">
                 <label class="form-label fw-semibold">Contraseña</label>
-                <input type="email" name="email" class="form-control" placeholder="tu@email.com" required>
+                <input type="password" name="password" class="form-control" placeholder="********" required>
             </div>
 
-            <div class="d-grid">
-                <button type="submit" class="btn btn-primary">
+            <div class="d-grid mt-2">
+                <button type="submit" class="btn btn-primary shadow-sm">
                     Entrar
                 </button>
             </div>

@@ -4,13 +4,9 @@ namespace App\Controllers;
 
 class Home extends BaseController
 {
-    /*public function index(): string
-    {
-        return view('public/inicio_proceso');
-    }*/
-
     public function index(): string
     {
-        return view('public/login_estudiante');
+        return view('public/inicio_proceso');
     }
+
 }

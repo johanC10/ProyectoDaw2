@@ -2,7 +2,7 @@
 
 namespace App\Controllers;
 
-class Auth extends BaseController
+class Auth_estudiantes extends BaseController
 {
     public function loginEstudiante()
     {
