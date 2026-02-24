@@ -121,7 +121,7 @@
         </div>
         <div class="d-flex align-items-center gap-4">
             <span class="text-sub"><i class="bi bi-person-circle me-1"></i> Admin_Secretaria</span>
-            <a href="<?= base_url('logout') ?>" class="btn-logout"><i class="bi bi-box-arrow-right me-1"></i> Salir</a>
+            <a href="<?= base_url('logout_secretaria') ?>" class="btn-logout"><i class="bi bi-box-arrow-right me-1"></i> Salir</a>
         </div>
     </header>
 
