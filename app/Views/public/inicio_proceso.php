@@ -107,7 +107,7 @@
                     Bienvenido al sistema oficial del Institut Caparrella. Completa tu matrícula de forma rápida, segura y totalmente digital.
                 </p>
                 <div class="d-grid gap-3 d-sm-flex justify-content-sm-center">
-                    <a href="<?= base_url('auth/estudiante') ?>" class="btn btn-start btn-lg px-5 py-3 shadow">Comenzar Matrícula</a>
+                    <a href="<?= base_url('auth/estudiante') ?>" class="btn btn-start btn-lg px-5 py-3 shadow">Comenzar Matrícula</a>   
                 </div>
             </div>
         </div>

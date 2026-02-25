@@ -29,7 +29,7 @@
 <body>
     <div class="container py-5">
 
-        <?= view('layouts/wizard_steps', ['paso_actual' => 3]) ?>
+        <?= view('layouts/wizard_steps', ['paso_actual' => 1]) ?>
 
         <div class="card shadow p-4">
             <div class="container py-5">
