@@ -28,10 +28,23 @@ $routes->group('formulario', ['filter' => 'authEstudiante'], function ($routes) 
     $routes->get('paso4', 'Formulario::paso4');
     $routes->get('paso5', 'Formulario::paso5');
 });
-    // --- GRUPO PROTEGIDO DE SECRETARÍA ---
+
+// --- GRUPO PROTEGIDO DE SECRETARÍA ---
 $routes->group('private', ['filter' => 'authSecretaria'], function ($routes) {
+    
+    // 1. VISTAS PRINCIPALES (Navegación)
     $routes->get('dashboard', 'AdminController::dashboard');
     $routes->get('curso/(:num)', 'AdminController::listarCurso/$1');
     $routes->get('validacion/(:num)', 'AdminController::validarMatricula/$1');
     
+    // 2. NUEVA MATRÍCULA (El botón de arriba a la derecha en el listado)
+    $routes->get('matricula/crear/(:num)', 'AdminController::crearMatricula/$1');
+    
+    // 3. PROCESAMIENTO DE DATOS (Cuando Secretaría pulsa botones de acción)
+    
+    // Para el formulario de "Guardar Notas", "Rechazar" o "Validar"
+    $routes->post('procesar_matricula/(:num)', 'AdminController::procesarMatricula/$1');
+    
+    // Para el formulario del Modal de "Solicitar Corrección"
+    $routes->post('solicitar_correccion/(:num)', 'AdminController::solicitarCorreccion/$1');
 });

@@ -4,54 +4,73 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portal de Matrícula - Institut Caparrella</title>
+    
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
     
     <style>
-        /* 1. Variables Globales de Color */
+        /* ==========================================
+           1. VARIABLES GLOBALES DE COLOR
+           ========================================== */
         :root {
+            /* Colores de Marca */
             --brand-primary: #6d79ce; 
             --brand-hover: #5b66b8;
+            --brand-success: #24c87e;
+            
+            /* Fondos y Superficies */
             --bg-page: #f8f9fa;
             --bg-surface: #ffffff;
+            
+            /* Textos y Bordes */
             --text-main: #212529;
             --text-secondary: #6c757d;
             --border-light: #f1f3f5;
+            --border-medium: #e9ecef;
         }
 
-        /* 2. Estilos Generales */
+        /* ==========================================
+           2. ESTILOS BASE
+           ========================================== */
         body {
             background-color: var(--bg-page);
             color: var(--text-main);
+            font-family: system-ui, -apple-system, sans-serif;
         }
-        .text-sub {
-            color: var(--text-secondary);
-        }
-        .bg-surface {
-            background-color: var(--bg-surface);
-        }
+        .text-sub { color: var(--text-secondary); }
+        .bg-surface { background-color: var(--bg-surface); }
 
-        
+        /* ==========================================
+           3. BOTONES Y HERO
+           ========================================== */
+        /* Botón superior Secretaría */
         .btn-access {
             color: #ffffff;
-            border: 1px solid var(--brand-primary);
-            background-color: #24c87e;
+            border: 1px solid var(--brand-success);
+            background-color: var(--brand-success);
+            transition: all 0.2s;
+            font-weight: 500;
         }
         .btn-access:hover {
             background-color: var(--brand-primary);
+            border-color: var(--brand-primary);
             color: #ffffff;
         }
+
+        /* Botón Principal Estudiante */
         .btn-start {
             background-color: var(--brand-primary);
             color: #ffffff;
             border: none;
+            font-weight: 600;
+            transition: background-color 0.2s;
         }
         .btn-start:hover {
-            background-color: #24c87e;
+            background-color: var(--brand-success);
             color: #ffffff;
         }
 
-        
+        /* Icono Cabecera */
         .hero-icon {
             background: linear-gradient(135deg, var(--brand-primary), #4b58b0);
             width: 90px; 
@@ -59,23 +78,53 @@
             color: #ffffff;
             font-size: 2.5rem;
         }
+
+        /* ==========================================
+           4. TARJETAS DE CARACTERÍSTICAS (Features)
+           ========================================== */
         .card-feature {
             background-color: var(--bg-surface);
-            transition: all 0.3s ease;
+            transition: transform 0.3s ease;
         }
         .card-feature:hover {
             transform: translateY(-5px);
         }
         .feature-icon {
-            color: #24c87e;
+            color: var(--brand-success);
             font-size: 2rem;
         }
         
-        
-        .step-item {
-            border-color: var(--border-light);
+        /* ==========================================
+           5. PASOS DEL PROCESO (Rediseño)
+           ========================================== */
+        .process-card {
             background-color: var(--bg-surface);
+            border-radius: 12px;
+            border: 1px solid var(--border-medium);
+            padding: 2rem 0; /* Padding superior e inferior */
         }
+        
+        .process-title {
+            text-align: center;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            color: var(--text-main);
+        }
+
+        /* Contenedor individual de cada paso */
+        .process-step {
+            display: flex;
+            align-items: center;
+            padding: 1.25rem 2rem;
+            border-bottom: 1px solid var(--border-light);
+            max-width: 650px; /* Controla el ancho para que no se estire de lado a lado */
+            margin: 0 auto;   /* Centra el bloque entero en la pantalla */
+        }
+        /* Quita la línea divisoria del último paso */
+        .process-step:last-child {
+            border-bottom: none;
+        }
+
         .step-number {
             width: 32px;
             height: 32px;
@@ -85,6 +134,15 @@
             font-weight: bold;
             background-color: var(--brand-primary);
             color: #ffffff;
+            border-radius: 50%;
+            flex-shrink: 0;
+            margin-right: 1.5rem; /* Espacio entre el círculo y el texto */
+        }
+
+        .step-text {
+            font-size: 1rem;
+            color: var(--text-main);
+            margin: 0;
         }
     </style>
 </head>
@@ -92,11 +150,12 @@
 
     <div class="position-fixed top-0 end-0 p-3" style="z-index: 1050;">
         <a href="<?= base_url('auth/secretaria') ?>" class="btn btn-access btn-sm shadow-sm">
-            <i class="bi bi-shield-lock-fill me-1"></i> Acceso Secretaría
+            <i class="bi bi-shield-lock-fill me-1"></i> Accés Secretaria
         </a>
     </div>
 
     <main class="container py-5">
+        
         <div class="row justify-content-center text-center py-5">
             <div class="col-lg-8">
                 <div class="mx-auto hero-icon rounded-circle d-flex align-items-center justify-content-center mb-4 shadow">
@@ -104,10 +163,12 @@
                 </div>
                 <h1 class="display-5 fw-bold mb-3">Portal de Matrícula Escolar</h1>
                 <p class="lead text-sub mb-4">
-                    Bienvenido al sistema oficial del Institut Caparrella. Completa tu matrícula de forma rápida, segura y totalmente digital.
+                    Benvingut al sistema oficial de l'Institut Caparrella. Completa la teva matrícula de forma ràpida, segura i totalment digital.
                 </p>
                 <div class="d-grid gap-3 d-sm-flex justify-content-sm-center">
-                    <a href="<?= base_url('auth/estudiante') ?>" class="btn btn-start btn-lg px-5 py-3 shadow">Comenzar Matrícula</a>
+                    <a href="<?= base_url('auth/estudiante') ?>" class="btn btn-start btn-lg px-5 py-3 shadow">
+                        Començar Matrícula
+                    </a>
                 </div>
             </div>
         </div>
@@ -116,98 +177,82 @@
             <div class="col-md-6 col-lg-3">
                 <div class="card h-100 border-0 shadow-sm p-4 card-feature">
                     <div class="feature-icon mb-3"><i class="bi bi-clock-history"></i></div>
-                    <h5 class="fw-bold">Proceso Rápido</h5>
-                    <p class="text-sub small mb-0">Completa tu matrícula en solo 10 minutos desde cualquier lugar.</p>
+                    <h5 class="fw-bold">Procés Ràpid</h5>
+                    <p class="text-sub small mb-0">Completa la teva matrícula en només 10 minuts des de qualsevol lloc.</p>
                 </div>
             </div>
             <div class="col-md-6 col-lg-3">
                 <div class="card h-100 border-0 shadow-sm p-4 card-feature">
                     <div class="feature-icon mb-3"><i class="bi bi-shield-check"></i></div>
-                    <h5 class="fw-bold">Datos Seguros</h5>
-                    <p class="text-sub small mb-0">Protección de datos garantizada según la normativa vigente.</p>
+                    <h5 class="fw-bold">Dades Segures</h5>
+                    <p class="text-sub small mb-0">Protecció de dades garantida segons la normativa vigent.</p>
                 </div>
             </div>
             <div class="col-md-6 col-lg-3">
                 <div class="card h-100 border-0 shadow-sm p-4 card-feature">
                     <div class="feature-icon mb-3"><i class="bi bi-cloud-arrow-up"></i></div>
                     <h5 class="fw-bold">100% Online</h5>
-                    <p class="text-sub small mb-0">Gestión digital: olvídate de traer papeles físicos al centro.</p>
+                    <p class="text-sub small mb-0">Gestió digital: oblida't de portar papers físics al centre.</p>
                 </div>
             </div>
             <div class="col-md-6 col-lg-3">
                 <div class="card h-100 border-0 shadow-sm p-4 card-feature">
                     <div class="feature-icon mb-3"><i class="bi bi-envelope-at"></i></div>
-                    <h5 class="fw-bold">Confirmación</h5>
-                    <p class="text-sub small mb-0">Recibirás tu resguardo de matrícula una vez terminado el proceso.</p>
+                    <h5 class="fw-bold">Confirmació</h5>
+                    <p class="text-sub small mb-0">Rebràs el teu resguard de matrícula un cop acabat el procés.</p>
                 </div>
             </div>
         </div>
 
         <div class="row justify-content-center mt-5">
-            <div class="col-md-10 col-lg-8">
-                <div class="card border-0 shadow-sm overflow-hidden bg-surface">
-                    <div class="card-header bg-surface py-3 border-0">
-                        <h2 class="h4 fw-bold mb-0 text-center">Pasos del Proceso</h2>
+            <div class="col-lg-7">
+                <div class="process-card shadow-sm">
+                    
+                    <h2 class="h4 process-title">Pasos del Proceso</h2>
+                    
+                    <div class="process-step">
+                        <div class="step-number">1</div>
+                        <p class="step-text">Identificación con DNI/NIE y validación de correo.</p>
                     </div>
-                    <div class="list-group list-group-flush">
-                        
-                        <div class="list-group-item d-flex justify-content-center py-3 px-4 step-item">
-                            <div class="d-flex align-items-center" style="width: 100%; max-width: 500px;">
-                                <span class="step-number rounded-circle me-3 flex-shrink-0">1</span>
-                                <div class="flex-grow-1">Identificación con DNI/NIE y validación de correo.</div>
-                            </div>
-                        </div>
 
-                        <div class="list-group-item d-flex justify-content-center py-3 px-4 step-item">
-                            <div class="d-flex align-items-center" style="width: 100%; max-width: 500px;">
-                                <span class="step-number rounded-circle me-3 flex-shrink-0">2</span>
-                                <div class="flex-grow-1">Revisión de datos personales del alumno y tutores.</div>
-                            </div>
-                        </div>
-
-                        <div class="list-group-item d-flex justify-content-center py-3 px-4 step-item">
-                            <div class="d-flex align-items-center" style="width: 100%; max-width: 500px;">
-                                <span class="step-number rounded-circle me-3 flex-shrink-0">3</span>
-                                <div class="flex-grow-1">Carga de DNI/NIE y tarjeta sanitaria.</div>
-                            </div>
-                        </div>
-
-                        <div class="list-group-item d-flex justify-content-center py-3 px-4 step-item">
-                            <div class="d-flex align-items-center" style="width: 100%; max-width: 500px;">
-                                <span class="step-number rounded-circle me-3 flex-shrink-0">4</span>
-                                <div class="flex-grow-1">Firma de autorización de derechos de imagen.</div>
-                            </div>
-                        </div>
-
-                        <div class="list-group-item d-flex justify-content-center py-3 px-4 step-item">
-                            <div class="d-flex align-items-center" style="width: 100%; max-width: 500px;">
-                                <span class="step-number rounded-circle me-3 flex-shrink-0">5</span>
-                                <div class="flex-grow-1">Elección de asignaturas optativas y servicios del ciclo.</div>
-                            </div>
-                        </div>
-
-                        <div class="list-group-item d-flex justify-content-center py-3 px-4 step-item">
-                            <div class="d-flex align-items-center" style="width: 100%; max-width: 500px;">
-                                <span class="step-number rounded-circle me-3 flex-shrink-0">6</span>
-                                <div class="flex-grow-1">Aplicación de bonificaciones y adjuntar pago.</div>
-                            </div>
-                        </div>
-
-                        <div class="list-group-item d-flex justify-content-center py-3 px-4 step-item">
-                            <div class="d-flex align-items-center" style="width: 100%; max-width: 500px;">
-                                <span class="step-number rounded-circle me-3 flex-shrink-0">7</span>
-                                <div class="flex-grow-1">Resumen final y confirmación de la matrícula.</div>
-                            </div>
-                        </div>
-
+                    <div class="process-step">
+                        <div class="step-number">2</div>
+                        <p class="step-text">Revisión de datos personales del alumno y tutores.</p>
                     </div>
+
+                    <div class="process-step">
+                        <div class="step-number">3</div>
+                        <p class="step-text">Carga de DNI/NIE y tarjeta sanitaria.</p>
+                    </div>
+
+                    <div class="process-step">
+                        <div class="step-number">4</div>
+                        <p class="step-text">Firma de autorización de derechos de imagen.</p>
+                    </div>
+
+                    <div class="process-step">
+                        <div class="step-number">5</div>
+                        <p class="step-text">Elección de asignaturas optativas y servicios del ciclo.</p>
+                    </div>
+
+                    <div class="process-step">
+                        <div class="step-number">6</div>
+                        <p class="step-text">Aplicación de bonificaciones y adjuntar pago.</p>
+                    </div>
+
+                    <div class="process-step">
+                        <div class="step-number">7</div>
+                        <p class="step-text">Resumen final y confirmación de la matrícula.</p>
+                    </div>
+
                 </div>
             </div>
         </div>
+
     </main>
 
     <footer class="text-center py-4 mt-5 text-sub border-top bg-surface">
-        <small>&copy; 2026 Institut Caparrella - Lleida. Todos los derechos reservados.</small>
+        <small>&copy; 2026 Institut Caparrella - Lleida. Tots els drets reservats.</small>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
