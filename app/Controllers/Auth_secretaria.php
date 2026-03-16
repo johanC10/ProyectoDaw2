@@ -6,31 +6,36 @@ class Auth_secretaria extends BaseController
 {
     public function loginSecretaria()
     {
+        
+        if (session()->get('secretaria_validada')) {
+            return redirect()->to('/private/dashboard');
+        }
+
+        
+        $this->response->noCache();
+
         return view('private/auth/login_gestion'); 
     }
 
     public function processLoginSecretaria()
     {
-        // 1. Recogemos lo que el usuario ha escrito en el formulario
+        
         $usuario = $this->request->getPost('usuario');
         $password = $this->request->getPost('password');
 
-        // 2. HARDCODE: Comprobamos si es nuestro usuario de prueba
+        
         if ($usuario === 'admin' && $password === '1234') {
             
-            
             session()->set('secretaria_validada', true);
-            
-            
             return redirect()->to('/private/dashboard');
             
         } else {
-            // Si falla, lo devolvemos al login con un mensaje de error
-            return redirect()->to('/auth/secretaria')->with('error', 'Dades incorrectes. Prova amb usuari: admin / pass: 1234');
+            
+            return redirect()->to('/auth/secretaria')->with('error', 'Usuari o contrasenya incorrecta');
         }
     }
 
-    // Estas funciones las dejamos preparadas para el futuro
+    
     public function validarSecretaria()
     {
         return view('private/gestion/validacion_detalle');
@@ -44,7 +49,7 @@ class Auth_secretaria extends BaseController
 
     public function logout()
     {
-        // Al salir, destruimos la sesión para que el Filtro vuelva a bloquear el acceso
+        
         session()->destroy();
         return redirect()->to('/auth/secretaria');
     }
