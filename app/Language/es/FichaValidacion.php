@@ -1,0 +1,47 @@
+<?php
+return [
+    'titulo_pestana' => 'Detalle de Matrícula',
+    'badge_pendiente' => 'Pendiente',
+    'texto_matricula_de' => 'Matrícula del',
+    
+    'card_personales' => 'Datos Personales',
+    'card_tutor' => 'Datos del Tutor',
+    'card_academica' => 'Información Académica',
+    'card_documentos' => 'Documentos Adjuntos',
+    'card_notas' => 'Notas Administrativas',
+    
+    'lbl_nombre' => 'Nombre Completo',
+    'lbl_email' => 'Email',
+    'lbl_dni' => 'DNI / NIE',
+    'lbl_telefono' => 'Teléfono',
+    'lbl_tsi' => 'Nº Tarjeta Sanitaria',
+    'lbl_derechos' => 'Derechos Imagen',
+    'val_no_aceptados' => 'No aceptados',
+    'lbl_direccion' => 'Dirección',
+    'lbl_tipo' => 'Tipo',
+    'val_nuevo' => 'Nuevo',
+    'lbl_curso' => 'Curso',
+    'lbl_optativas' => 'Optativas',
+    'lbl_total' => 'Total',
+    
+    'doc_dni_front' => 'DNI Frontal',
+    'doc_dni_back' => 'DNI Trasero',
+    'doc_tsi_front' => 'TSI Frontal',
+    'doc_tsi_back' => 'TSI Trasera',
+    
+    'ph_notas' => 'Añadir notas internas...',
+    'btn_guardar_notas' => 'Guardar Notas',
+    'btn_solicitar_corr' => 'Solicitar Corrección',
+    'btn_rechazar' => 'Rechazar',
+    'btn_validar' => 'Validar',
+    'confirm_rechazar' => '¿Rechazar matrícula?',
+    
+    'modal_titulo' => 'Solicitar Corrección',
+    'modal_desc_1' => 'Se enviará un correo a',
+    'modal_desc_2' => 'indicando qué debe corregir.',
+    'lbl_mensaje' => 'Mensaje detallado',
+    'ph_mensaje' => 'Ej: La foto del DNI frontal se ve borrosa, por favor adjunte una más nítida...',
+    'lbl_adjunto' => 'Adjuntar imagen de referencia (Opcional)',
+    'btn_cancelar' => 'Cancelar',
+    'btn_enviar_correo' => 'Enviar Correo',
+];

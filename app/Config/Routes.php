@@ -7,6 +7,8 @@ use CodeIgniter\Router\RouteCollection;
  */
 $routes->get('/', 'Home::index');
 
+$routes->get('lang/(:segment)', 'IdiomaController::cambiar/$1');
+
 // --- Estudiantes ---
 $routes->get('/auth/estudiante', 'Auth_estudiantes::loginEstudiante');
 $routes->post('/login_estudiante', 'Auth_estudiantes::processLoginEstudiante');
@@ -50,5 +52,4 @@ $routes->group('private', ['filter' => 'authSecretaria'], function ($routes) {
 
 
 
-    $routes->get('lang/(:segment)', 'IdiomaController::cambiar/$1');
 });

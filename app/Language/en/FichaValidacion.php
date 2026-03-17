@@ -1,0 +1,47 @@
+<?php
+return [
+    'titulo_pestana' => 'Enrollment Details',
+    'badge_pendiente' => 'Pending',
+    'texto_matricula_de' => 'Enrollment on',
+    
+    'card_personales' => 'Personal Data',
+    'card_tutor' => 'Guardian Data',
+    'card_academica' => 'Academic Information',
+    'card_documentos' => 'Attached Documents',
+    'card_notas' => 'Administrative Notes',
+    
+    'lbl_nombre' => 'Full Name',
+    'lbl_email' => 'Email',
+    'lbl_dni' => 'ID / Passport',
+    'lbl_telefono' => 'Phone',
+    'lbl_tsi' => 'Health Card Nº',
+    'lbl_derechos' => 'Image Rights',
+    'val_no_aceptados' => 'Not accepted',
+    'lbl_direccion' => 'Address',
+    'lbl_tipo' => 'Type',
+    'val_nuevo' => 'New',
+    'lbl_curso' => 'Course',
+    'lbl_optativas' => 'Electives',
+    'lbl_total' => 'Total',
+    
+    'doc_dni_front' => 'ID Front',
+    'doc_dni_back' => 'ID Back',
+    'doc_tsi_front' => 'Health Card Front',
+    'doc_tsi_back' => 'Health Card Back',
+    
+    'ph_notas' => 'Add internal notes...',
+    'btn_guardar_notas' => 'Save Notes',
+    'btn_solicitar_corr' => 'Request Correction',
+    'btn_rechazar' => 'Reject',
+    'btn_validar' => 'Validate',
+    'confirm_rechazar' => 'Reject enrollment?',
+    
+    'modal_titulo' => 'Request Correction',
+    'modal_desc_1' => 'An email will be sent to',
+    'modal_desc_2' => 'indicating what needs to be corrected.',
+    'lbl_mensaje' => 'Detailed message',
+    'ph_mensaje' => 'Ex: The front ID photo is blurry, please attach a clearer one...',
+    'lbl_adjunto' => 'Attach reference image (Optional)',
+    'btn_cancelar' => 'Cancel',
+    'btn_enviar_correo' => 'Send Email',
+];

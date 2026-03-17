@@ -1,37 +1,26 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="<?= service('request')->getLocale() ?>">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portal de Matrícula - Institut Caparrella</title>
+    <title><?= lang('Portal.titulo_pestana') ?></title>
     
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
     
     <style>
-        /* ==========================================
-           1. VARIABLES GLOBALES DE COLOR
-           ========================================== */
         :root {
-            /* Colores de Marca */
             --brand-primary: #6d79ce; 
             --brand-hover: #5b66b8;
             --brand-success: #24c87e;
-            
-            /* Fondos y Superficies */
             --bg-page: #f8f9fa;
             --bg-surface: #ffffff;
-            
-            /* Textos y Bordes */
             --text-main: #212529;
             --text-secondary: #6c757d;
             --border-light: #f1f3f5;
             --border-medium: #e9ecef;
         }
 
-        /* ==========================================
-           2. ESTILOS BASE
-           ========================================== */
         body {
             background-color: var(--bg-page);
             color: var(--text-main);
@@ -40,10 +29,20 @@
         .text-sub { color: var(--text-secondary); }
         .bg-surface { background-color: var(--bg-surface); }
 
-        /* ==========================================
-           3. BOTONES Y HERO
-           ========================================== */
-        /* Botón superior Secretaría */
+        /* Dropdown de idiomas */
+        .lang-selector {
+            background-color: var(--bg-surface);
+            color: var(--text-main);
+            font-weight: 500;
+            padding: 0.3rem 0.8rem;
+            border-radius: 6px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
         .btn-access {
             color: #ffffff;
             border: 1px solid var(--brand-success);
@@ -57,7 +56,6 @@
             color: #ffffff;
         }
 
-        /* Botón Principal Estudiante */
         .btn-start {
             background-color: var(--brand-primary);
             color: #ffffff;
@@ -70,7 +68,6 @@
             color: #ffffff;
         }
 
-        /* Icono Cabecera */
         .hero-icon {
             background: linear-gradient(135deg, var(--brand-primary), #4b58b0);
             width: 90px; 
@@ -79,9 +76,6 @@
             font-size: 2.5rem;
         }
 
-        /* ==========================================
-           4. TARJETAS DE CARACTERÍSTICAS (Features)
-           ========================================== */
         .card-feature {
             background-color: var(--bg-surface);
             transition: transform 0.3s ease;
@@ -94,14 +88,11 @@
             font-size: 2rem;
         }
         
-        /* ==========================================
-           5. PASOS DEL PROCESO (Rediseño)
-           ========================================== */
         .process-card {
             background-color: var(--bg-surface);
             border-radius: 12px;
             border: 1px solid var(--border-medium);
-            padding: 2rem 0; /* Padding superior e inferior */
+            padding: 2rem 0; 
         }
         
         .process-title {
@@ -111,16 +102,14 @@
             color: var(--text-main);
         }
 
-        /* Contenedor individual de cada paso */
         .process-step {
             display: flex;
             align-items: center;
             padding: 1.25rem 2rem;
             border-bottom: 1px solid var(--border-light);
-            max-width: 650px; /* Controla el ancho para que no se estire de lado a lado */
-            margin: 0 auto;   /* Centra el bloque entero en la pantalla */
+            max-width: 650px; 
+            margin: 0 auto; 
         }
-        /* Quita la línea divisoria del último paso */
         .process-step:last-child {
             border-bottom: none;
         }
@@ -136,7 +125,7 @@
             color: #ffffff;
             border-radius: 50%;
             flex-shrink: 0;
-            margin-right: 1.5rem; /* Espacio entre el círculo y el texto */
+            margin-right: 1.5rem; 
         }
 
         .step-text {
@@ -148,9 +137,21 @@
 </head>
 <body>
 
-    <div class="position-fixed top-0 end-0 p-3" style="z-index: 1050;">
+    <div class="position-fixed top-0 end-0 p-3 d-flex align-items-center gap-3" style="z-index: 1050;">
+        
+        <div class="dropdown">
+            <button class="lang-selector dropdown-toggle border" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="bi bi-globe"></i> <?= strtoupper(service('request')->getLocale()) ?>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end border-0 shadow-sm">
+                <li><a class="dropdown-item <?= service('request')->getLocale() === 'ca' ? 'fw-bold' : '' ?>" href="<?= base_url('lang/ca') ?>">Català (CA)</a></li>
+                <li><a class="dropdown-item <?= service('request')->getLocale() === 'es' ? 'fw-bold' : '' ?>" href="<?= base_url('lang/es') ?>">Español (ES)</a></li>
+                <li><a class="dropdown-item <?= service('request')->getLocale() === 'en' ? 'fw-bold' : '' ?>" href="<?= base_url('lang/en') ?>">English (EN)</a></li>
+            </ul>
+        </div>
+
         <a href="<?= base_url('auth/secretaria') ?>" class="btn btn-access btn-sm shadow-sm">
-            <i class="bi bi-shield-lock-fill me-1"></i> Accés Secretaria
+            <i class="bi bi-shield-lock-fill me-1"></i> <?= lang('Portal.btn_secretaria') ?>
         </a>
     </div>
 
@@ -161,13 +162,13 @@
                 <div class="mx-auto hero-icon rounded-circle d-flex align-items-center justify-content-center mb-4 shadow">
                     <i class="bi bi-mortarboard-fill"></i>
                 </div>
-                <h1 class="display-5 fw-bold mb-3">Portal de Matrícula Escolar</h1>
+                <h1 class="display-5 fw-bold mb-3"><?= lang('Portal.titulo_principal') ?></h1>
                 <p class="lead text-sub mb-4">
-                    Benvingut al sistema oficial de l'Institut Caparrella. Completa la teva matrícula de forma ràpida, segura i totalment digital.
+                    <?= lang('Portal.subtitulo') ?>
                 </p>
                 <div class="d-grid gap-3 d-sm-flex justify-content-sm-center">
                     <a href="<?= base_url('auth/estudiante') ?>" class="btn btn-start btn-lg px-5 py-3 shadow">
-                        Començar Matrícula
+                        <?= lang('Portal.btn_comenzar') ?>
                     </a>
                 </div>
             </div>
@@ -177,29 +178,29 @@
             <div class="col-md-6 col-lg-3">
                 <div class="card h-100 border-0 shadow-sm p-4 card-feature">
                     <div class="feature-icon mb-3"><i class="bi bi-clock-history"></i></div>
-                    <h5 class="fw-bold">Procés Ràpid</h5>
-                    <p class="text-sub small mb-0">Completa la teva matrícula en només 10 minuts des de qualsevol lloc.</p>
+                    <h5 class="fw-bold"><?= lang('Portal.feat1_titulo') ?></h5>
+                    <p class="text-sub small mb-0"><?= lang('Portal.feat1_desc') ?></p>
                 </div>
             </div>
             <div class="col-md-6 col-lg-3">
                 <div class="card h-100 border-0 shadow-sm p-4 card-feature">
                     <div class="feature-icon mb-3"><i class="bi bi-shield-check"></i></div>
-                    <h5 class="fw-bold">Dades Segures</h5>
-                    <p class="text-sub small mb-0">Protecció de dades garantida segons la normativa vigent.</p>
+                    <h5 class="fw-bold"><?= lang('Portal.feat2_titulo') ?></h5>
+                    <p class="text-sub small mb-0"><?= lang('Portal.feat2_desc') ?></p>
                 </div>
             </div>
             <div class="col-md-6 col-lg-3">
                 <div class="card h-100 border-0 shadow-sm p-4 card-feature">
                     <div class="feature-icon mb-3"><i class="bi bi-cloud-arrow-up"></i></div>
-                    <h5 class="fw-bold">100% Online</h5>
-                    <p class="text-sub small mb-0">Gestió digital: oblida't de portar papers físics al centre.</p>
+                    <h5 class="fw-bold"><?= lang('Portal.feat3_titulo') ?></h5>
+                    <p class="text-sub small mb-0"><?= lang('Portal.feat3_desc') ?></p>
                 </div>
             </div>
             <div class="col-md-6 col-lg-3">
                 <div class="card h-100 border-0 shadow-sm p-4 card-feature">
                     <div class="feature-icon mb-3"><i class="bi bi-envelope-at"></i></div>
-                    <h5 class="fw-bold">Confirmació</h5>
-                    <p class="text-sub small mb-0">Rebràs el teu resguard de matrícula un cop acabat el procés.</p>
+                    <h5 class="fw-bold"><?= lang('Portal.feat4_titulo') ?></h5>
+                    <p class="text-sub small mb-0"><?= lang('Portal.feat4_desc') ?></p>
                 </div>
             </div>
         </div>
@@ -208,41 +209,41 @@
             <div class="col-lg-7">
                 <div class="process-card shadow-sm">
                     
-                    <h2 class="h4 process-title">Pasos del Proceso</h2>
+                    <h2 class="h4 process-title"><?= lang('Portal.pasos_titulo') ?></h2>
                     
                     <div class="process-step">
                         <div class="step-number">1</div>
-                        <p class="step-text">Identificación con DNI/NIE y validación de correo.</p>
+                        <p class="step-text"><?= lang('Portal.paso_1') ?></p>
                     </div>
 
                     <div class="process-step">
                         <div class="step-number">2</div>
-                        <p class="step-text">Revisión de datos personales del alumno y tutores.</p>
+                        <p class="step-text"><?= lang('Portal.paso_2') ?></p>
                     </div>
 
                     <div class="process-step">
                         <div class="step-number">3</div>
-                        <p class="step-text">Carga de DNI/NIE y tarjeta sanitaria.</p>
+                        <p class="step-text"><?= lang('Portal.paso_3') ?></p>
                     </div>
 
                     <div class="process-step">
                         <div class="step-number">4</div>
-                        <p class="step-text">Firma de autorización de derechos de imagen.</p>
+                        <p class="step-text"><?= lang('Portal.paso_4') ?></p>
                     </div>
 
                     <div class="process-step">
                         <div class="step-number">5</div>
-                        <p class="step-text">Elección de asignaturas optativas y servicios del ciclo.</p>
+                        <p class="step-text"><?= lang('Portal.paso_5') ?></p>
                     </div>
 
                     <div class="process-step">
                         <div class="step-number">6</div>
-                        <p class="step-text">Aplicación de bonificaciones y adjuntar pago.</p>
+                        <p class="step-text"><?= lang('Portal.paso_6') ?></p>
                     </div>
 
                     <div class="process-step">
                         <div class="step-number">7</div>
-                        <p class="step-text">Resumen final y confirmación de la matrícula.</p>
+                        <p class="step-text"><?= lang('Portal.paso_7') ?></p>
                     </div>
 
                 </div>
@@ -252,7 +253,7 @@
     </main>
 
     <footer class="text-center py-4 mt-5 text-sub border-top bg-surface">
-        <small>&copy; 2026 Institut Caparrella - Lleida. Tots els drets reservats.</small>
+        <small>&copy; <?= date('Y') ?> <?= lang('Portal.footer_derechos') ?></small>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>

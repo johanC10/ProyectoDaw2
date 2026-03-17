@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="<?= service('request')->getLocale() ?>">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Detalle de Matrícula</title>
+    <title><?= lang('FichaValidacion.titulo_pestana') ?></title>
     
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
@@ -42,6 +42,10 @@
         .btn-warn { background: var(--bg-card); color: var(--color-warning); border-color: var(--color-warning); }
         .btn-danger-custom { background: var(--color-danger); color: white; }
         .btn-success-custom { background: var(--color-success); color: white; }
+
+        /* Estilo sutil para selector de idioma */
+        .lang-btn { text-decoration: none; color: var(--text-muted); padding: 0.3rem 0.6rem; border-radius: 6px; border: 1px solid transparent; transition: all 0.2s; }
+        .lang-btn:hover { background-color: var(--bg-card); border-color: var(--border-color); color: var(--text-main); }
     </style>
 </head>
 <body>
@@ -53,10 +57,23 @@
                 <a href="<?= base_url('private/curso/1') ?>" class="text-dark fs-4"><i class="bi bi-arrow-left"></i></a>
                 <div>
                     <h2 class="fw-bold mb-0">María García López</h2>
-                    <span class="text-muted small">1eso · Matrícula del 25/2/2026</span>
+                    <span class="text-muted small"><?= lang('Cursos.curso_1') ?> · <?= lang('FichaValidacion.texto_matricula_de') ?> 25/2/2026</span>
                 </div>
             </div>
-            <span class="badge border text-dark bg-white px-3 py-2 rounded-pill">Pendiente</span>
+            
+            <div class="d-flex align-items-center gap-3">
+                <div class="dropdown">
+                    <button class="lang-btn dropdown-toggle bg-transparent border-0" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="bi bi-globe"></i> <?= strtoupper(service('request')->getLocale()) ?>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end border-0 shadow-sm">
+                        <li><a class="dropdown-item <?= service('request')->getLocale() === 'ca' ? 'fw-bold' : '' ?>" href="<?= base_url('lang/ca') ?>">Català</a></li>
+                        <li><a class="dropdown-item <?= service('request')->getLocale() === 'es' ? 'fw-bold' : '' ?>" href="<?= base_url('lang/es') ?>">Español</a></li>
+                        <li><a class="dropdown-item <?= service('request')->getLocale() === 'en' ? 'fw-bold' : '' ?>" href="<?= base_url('lang/en') ?>">English</a></li>
+                    </ul>
+                </div>
+                <span class="badge border text-dark bg-white px-3 py-2 rounded-pill"><?= lang('FichaValidacion.badge_pendiente') ?></span>
+            </div>
         </div>
 
         <form action="<?= base_url('private/procesar_matricula/1') ?>" method="post">
@@ -65,29 +82,29 @@
             <div class="row g-3 mb-3">
                 <div class="col-lg-9">
                     <div class="info-card h-100 mb-0">
-                        <div class="card-title-sm"><i class="bi bi-person me-2"></i>Datos Personales</div>
+                        <div class="card-title-sm"><i class="bi bi-person me-2"></i><?= lang('FichaValidacion.card_personales') ?></div>
                         <div class="row">
                             <div class="col-md-4">
-                                <div class="data-label">Nombre Completo</div><div class="data-value">María García López</div>
-                                <div class="data-label">Email</div><div class="data-value">maria@ejemplo.com</div>
+                                <div class="data-label"><?= lang('FichaValidacion.lbl_nombre') ?></div><div class="data-value">María García López</div>
+                                <div class="data-label"><?= lang('FichaValidacion.lbl_email') ?></div><div class="data-value">maria@ejemplo.com</div>
                             </div>
                             <div class="col-md-4">
-                                <div class="data-label">DNI / NIE</div><div class="data-value">12345678A</div>
-                                <div class="data-label">Teléfono</div><div class="data-value">612 345 678</div>
+                                <div class="data-label"><?= lang('FichaValidacion.lbl_dni') ?></div><div class="data-value">12345678A</div>
+                                <div class="data-label"><?= lang('FichaValidacion.lbl_telefono') ?></div><div class="data-value">612 345 678</div>
                             </div>
                             <div class="col-md-4">
-                                <div class="data-label">Nº Tarjeta Sanitaria</div><div class="data-value">TSE123456789</div>
-                                <div class="data-label">Derechos Imagen</div><div class="data-value text-danger"><i class="bi bi-x"></i> No aceptados</div>
+                                <div class="data-label"><?= lang('FichaValidacion.lbl_tsi') ?></div><div class="data-value">TSE123456789</div>
+                                <div class="data-label"><?= lang('FichaValidacion.lbl_derechos') ?></div><div class="data-value text-danger"><i class="bi bi-x"></i> <?= lang('FichaValidacion.val_no_aceptados') ?></div>
                             </div>
                             <div class="col-12">
-                                <div class="data-label">Dirección</div><div class="data-value mb-0">Calle Mayor 15, 2ºB, Madrid 28001</div>
+                                <div class="data-label"><?= lang('FichaValidacion.lbl_direccion') ?></div><div class="data-value mb-0">Calle Mayor 15, 2ºB, Madrid 28001</div>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-3">
                     <div class="info-card h-100 mb-0 text-center">
-                        <div class="card-title-sm">Foto del Alumno</div>
+                        <div class="card-title-sm">Foto</div>
                         <div class="foto-alumno">
                             <i class="bi bi-person-bounding-box fs-1"></i>
                         </div>
@@ -98,54 +115,54 @@
             <div class="row g-3 mb-3">
                 <div class="col-md-6">
                     <div class="info-card h-100 mb-0">
-                        <div class="card-title-sm"><i class="bi bi-people me-2"></i>Datos del Tutor</div>
+                        <div class="card-title-sm"><i class="bi bi-people me-2"></i><?= lang('FichaValidacion.card_tutor') ?></div>
                         <div class="row">
-                            <div class="col-6"><div class="data-label">Nombre</div><div class="data-value">Pedro García</div></div>
-                            <div class="col-6"><div class="data-label">Teléfono</div><div class="data-value">698 765 432</div></div>
-                            <div class="col-12"><div class="data-label">Email</div><div class="data-value mb-0">pedro@ejemplo.com</div></div>
+                            <div class="col-6"><div class="data-label"><?= lang('FichaValidacion.lbl_nombre') ?></div><div class="data-value">Pedro García</div></div>
+                            <div class="col-6"><div class="data-label"><?= lang('FichaValidacion.lbl_telefono') ?></div><div class="data-value">698 765 432</div></div>
+                            <div class="col-12"><div class="data-label"><?= lang('FichaValidacion.lbl_email') ?></div><div class="data-value mb-0">pedro@ejemplo.com</div></div>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="info-card h-100 mb-0">
-                        <div class="card-title-sm"><i class="bi bi-mortarboard me-2"></i>Información Académica</div>
+                        <div class="card-title-sm"><i class="bi bi-mortarboard me-2"></i><?= lang('FichaValidacion.card_academica') ?></div>
                         <div class="d-flex gap-4 mb-2">
-                            <div><div class="data-label">Tipo</div><div class="data-value mb-1">Nuevo</div></div>
-                            <div><div class="data-label">Curso</div><div class="data-value mb-1">1eso</div></div>
+                            <div><div class="data-label"><?= lang('FichaValidacion.lbl_tipo') ?></div><div class="data-value mb-1"><?= lang('FichaValidacion.val_nuevo') ?></div></div>
+                            <div><div class="data-label"><?= lang('FichaValidacion.lbl_curso') ?></div><div class="data-value mb-1"><?= lang('Cursos.curso_1') ?></div></div>
                         </div>
-                        <div class="data-label">Optativas</div>
+                        <div class="data-label"><?= lang('FichaValidacion.lbl_optativas') ?></div>
                         <div class="mb-2 small">
                             <span class="opt-badge">1</span> Francés &nbsp; <span class="opt-badge">2</span> Tecnología
                         </div>
-                        <div class="total-box">Total: <strong>€380.00</strong></div>
+                        <div class="total-box"><?= lang('FichaValidacion.lbl_total') ?>: <strong>€380.00</strong></div>
                     </div>
                 </div>
             </div>
 
             <div class="info-card">
-                <div class="card-title-sm"><i class="bi bi-file-earmark-text me-2"></i>Documentos Adjuntos</div>
+                <div class="card-title-sm"><i class="bi bi-file-earmark-text me-2"></i><?= lang('FichaValidacion.card_documentos') ?></div>
                 <div class="row g-3">
                     <div class="col-md-3">
                         <div class="doc-box">
-                            <div class="data-label text-start ms-1">DNI Frontal</div>
+                            <div class="data-label text-start ms-1"><?= lang('FichaValidacion.doc_dni_front') ?></div>
                             <img src="https://via.placeholder.com/300x200" class="doc-img" alt="DNI Frontal" onclick="window.open(this.src)">
                         </div>
                     </div>
                     <div class="col-md-3">
                         <div class="doc-box">
-                            <div class="data-label text-start ms-1">DNI Trasero</div>
+                            <div class="data-label text-start ms-1"><?= lang('FichaValidacion.doc_dni_back') ?></div>
                             <img src="https://via.placeholder.com/300x200" class="doc-img" alt="DNI Trasero" onclick="window.open(this.src)">
                         </div>
                     </div>
                     <div class="col-md-3">
                         <div class="doc-box">
-                            <div class="data-label text-start ms-1">TSI Frontal</div>
+                            <div class="data-label text-start ms-1"><?= lang('FichaValidacion.doc_tsi_front') ?></div>
                             <img src="https://via.placeholder.com/300x200" class="doc-img" alt="TSI" onclick="window.open(this.src)">
                         </div>
                     </div>
                     <div class="col-md-3">
                         <div class="doc-box">
-                            <div class="data-label text-start ms-1">TSI Trasera</div>
+                            <div class="data-label text-start ms-1"><?= lang('FichaValidacion.doc_tsi_back') ?></div>
                             <img src="https://via.placeholder.com/300x200" class="doc-img" alt="TSI" onclick="window.open(this.src)">
                         </div>
                     </div>
@@ -153,15 +170,15 @@
             </div>
 
             <div class="info-card mb-4">
-                <div class="card-title-sm">Notas Administrativas</div>
-                <textarea name="notas" class="form-control" rows="3" placeholder="Añadir notas internas..." style="background:#f8fafc; border-color:#e2e8f0;"></textarea>
+                <div class="card-title-sm"><?= lang('FichaValidacion.card_notas') ?></div>
+                <textarea name="notas" class="form-control" rows="3" placeholder="<?= lang('FichaValidacion.ph_notas') ?>" style="background:#f8fafc; border-color:#e2e8f0;"></textarea>
             </div>
 
             <div class="action-bar px-4">
-                <button type="submit" name="accion" value="guardar" class="btn-act btn-notes"><i class="bi bi-floppy"></i> Guardar Notas</button>
-                <button type="button" class="btn-act btn-warn" data-bs-toggle="modal" data-bs-target="#modalCorreccion"><i class="bi bi-envelope"></i> Solicitar Corrección</button>
-                <button type="submit" name="accion" value="rechazar" class="btn-act btn-danger-custom" onclick="return confirm('¿Rechazar matrícula?');"><i class="bi bi-x-circle"></i> Rechazar</button>
-                <button type="submit" name="accion" value="validar" class="btn-act btn-success-custom"><i class="bi bi-check-circle"></i> Validar</button>
+                <button type="submit" name="accion" value="guardar" class="btn-act btn-notes"><i class="bi bi-floppy"></i> <?= lang('FichaValidacion.btn_guardar_notas') ?></button>
+                <button type="button" class="btn-act btn-warn" data-bs-toggle="modal" data-bs-target="#modalCorreccion"><i class="bi bi-envelope"></i> <?= lang('FichaValidacion.btn_solicitar_corr') ?></button>
+                <button type="submit" name="accion" value="rechazar" class="btn-act btn-danger-custom" onclick="return confirm('<?= lang('FichaValidacion.confirm_rechazar') ?>');"><i class="bi bi-x-circle"></i> <?= lang('FichaValidacion.btn_rechazar') ?></button>
+                <button type="submit" name="accion" value="validar" class="btn-act btn-success-custom"><i class="bi bi-check-circle"></i> <?= lang('FichaValidacion.btn_validar') ?></button>
             </div>
         </form>
     </main>
@@ -170,28 +187,28 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content border-0 shadow">
                 <div class="modal-header border-0 pb-0">
-                    <h5 class="modal-title fw-bold text-warning">Solicitar Corrección</h5>
+                    <h5 class="modal-title fw-bold text-warning"><?= lang('FichaValidacion.modal_titulo') ?></h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
                 
                 <form action="<?= base_url('private/solicitar_correccion/1') ?>" method="post" enctype="multipart/form-data">
                     <?= csrf_field() ?>
                     <div class="modal-body pt-2">
-                        <p class="text-muted small mb-3">Se enviará un correo a <strong>maria@ejemplo.com</strong> indicando qué debe corregir.</p>
+                        <p class="text-muted small mb-3"><?= lang('FichaValidacion.modal_desc_1') ?> <strong>maria@ejemplo.com</strong> <?= lang('FichaValidacion.modal_desc_2') ?></p>
                         
                         <div class="mb-3">
-                            <label class="fw-medium small mb-1">Mensaje detallado</label>
-                            <textarea name="mensaje" class="form-control" rows="4" placeholder="Ej: La foto del DNI frontal se ve borrosa, por favor adjunte una más nítida..." required></textarea>
+                            <label class="fw-medium small mb-1"><?= lang('FichaValidacion.lbl_mensaje') ?></label>
+                            <textarea name="mensaje" class="form-control" rows="4" placeholder="<?= lang('FichaValidacion.ph_mensaje') ?>" required></textarea>
                         </div>
                         
                         <div class="mb-2">
-                            <label class="fw-medium small mb-1">Adjuntar imagen de referencia (Opcional)</label>
+                            <label class="fw-medium small mb-1"><?= lang('FichaValidacion.lbl_adjunto') ?></label>
                             <input type="file" name="archivo_adjunto" class="form-control form-control-sm" accept="image/*,.pdf">
                         </div>
                     </div>
                     <div class="modal-footer border-0 pt-0">
-                        <button type="button" class="btn btn-light btn-sm" data-bs-dismiss="modal">Cancelar</button>
-                        <button type="submit" class="btn btn-warning text-white btn-sm">Enviar Correo</button>
+                        <button type="button" class="btn btn-light btn-sm" data-bs-dismiss="modal"><?= lang('FichaValidacion.btn_cancelar') ?></button>
+                        <button type="submit" class="btn btn-warning text-white btn-sm"><?= lang('FichaValidacion.btn_enviar_correo') ?></button>
                     </div>
                 </form>
             </div>
