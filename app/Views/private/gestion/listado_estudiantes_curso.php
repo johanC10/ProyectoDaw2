@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html lang="ca">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Llistat de Matrícules - Secretaria</title>
-    
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
-    
+
     <style>
         /* Variables Globales de Color */
         :root {
@@ -16,13 +17,13 @@
             --text-main: #0f172a;
             --text-muted: #64748b;
             --border-color: #e2e8f0;
-            
+
             --color-primary: #3b82f6;
             --color-primary-hover: #2563eb;
             --color-success: #10b981;
             --color-warning: #f59e0b;
-            --color-danger:  #ef4444;
-            --color-light:   #f1f5f9;
+            --color-danger: #ef4444;
+            --color-light: #f1f5f9;
         }
 
         body {
@@ -37,7 +38,7 @@
             border-bottom: 1px solid var(--border-color);
             padding: 0.75rem 2rem;
         }
-        
+
         .lang-selector {
             border: 1px solid var(--border-color);
             background-color: var(--bg-body);
@@ -60,11 +61,16 @@
             border-radius: 6px;
             transition: background 0.2s;
         }
-        .btn-logout:hover { background-color: #fef2f2; }
+
+        .btn-logout:hover {
+            background-color: #fef2f2;
+        }
 
         /* Controles y Botones */
-        .header-section { padding: 2rem 0 1.5rem 0; }
-        
+        .header-section {
+            padding: 2rem 0 1.5rem 0;
+        }
+
         .btn-back {
             color: var(--text-main);
             text-decoration: none;
@@ -72,7 +78,10 @@
             margin-right: 1rem;
             transition: color 0.2s;
         }
-        .btn-back:hover { color: var(--color-primary); }
+
+        .btn-back:hover {
+            color: var(--color-primary);
+        }
 
         .btn-create {
             background-color: var(--color-primary);
@@ -86,7 +95,11 @@
             gap: 0.5rem;
             transition: background 0.2s;
         }
-        .btn-create:hover { background-color: var(--color-primary-hover); color: #ffffff; }
+
+        .btn-create:hover {
+            background-color: var(--color-primary-hover);
+            color: #ffffff;
+        }
 
         /* Panel de Filtros */
         .filter-panel {
@@ -95,14 +108,15 @@
             border-radius: 12px;
             padding: 1.25rem;
             margin-bottom: 1.5rem;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
         }
-        
+
         .custom-input {
             border: 1px solid var(--border-color);
             border-radius: 8px;
             background-color: var(--bg-body);
         }
+
         .custom-input:focus {
             border-color: var(--color-primary);
             box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
@@ -114,9 +128,9 @@
             border: 1px solid var(--border-color);
             border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
         }
-        
+
         .table th {
             background-color: var(--color-light);
             color: var(--text-muted);
@@ -127,7 +141,7 @@
             padding: 1rem 1.5rem;
             border-bottom: 1px solid var(--border-color);
         }
-        
+
         .table td {
             padding: 1rem 1.5rem;
             vertical-align: middle;
@@ -135,8 +149,13 @@
             color: var(--text-main);
         }
 
-        .table tr:last-child td { border-bottom: none; }
-        .table tbody tr:hover { background-color: var(--color-light); }
+        .table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .table tbody tr:hover {
+            background-color: var(--color-light);
+        }
 
         /* Badges y Enlaces de Tabla */
         .status-badge {
@@ -145,9 +164,17 @@
             font-size: 0.8rem;
             font-weight: 600;
         }
-        .bg-pending { background-color: #fef3c7; color: #d97706; }
-        .bg-valid { background-color: #d1fae5; color: #059669; }
-        
+
+        .bg-pending {
+            background-color: #fef3c7;
+            color: #d97706;
+        }
+
+        .bg-valid {
+            background-color: #d1fae5;
+            color: #059669;
+        }
+
         .action-link {
             color: var(--color-primary);
             font-weight: 500;
@@ -156,9 +183,13 @@
             border-radius: 6px;
             transition: background 0.2s;
         }
-        .action-link:hover { background-color: #eff6ff; }
+
+        .action-link:hover {
+            background-color: #eff6ff;
+        }
     </style>
 </head>
+
 <body>
 
     <header class="top-navbar d-flex justify-content-between align-items-center sticky-top">
@@ -167,25 +198,38 @@
         </div>
         <div class="d-flex align-items-center gap-4">
             <div class="dropdown">
-                <button class="lang-selector dropdown-toggle border-0" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    <i class="bi bi-globe"></i> CA
+                <button class="lang-selector dropdown-toggle border-0" type="button" data-bs-toggle="dropdown"
+                    aria-expanded="false">
+                    <i class="bi bi-globe"></i>
+                    <?= strtoupper(service('request')->getLocale()) ?>
                 </button>
                 <ul class="dropdown-menu dropdown-menu-end border-0 shadow-sm">
-                    <li><a class="dropdown-item fw-bold" href="#">Català (CA)</a></li>
-                    <li><a class="dropdown-item" href="#">Español (ES)</a></li>
-                    <li><a class="dropdown-item" href="#">English (EN)</a></li>
+                    <li>
+                        <a class="dropdown-item <?= service('request')->getLocale() === 'ca' ? 'fw-bold' : '' ?>"
+                            href="<?= base_url('lang/ca') ?>">Català (CA)</a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item <?= service('request')->getLocale() === 'es' ? 'fw-bold' : '' ?>"
+                            href="<?= base_url('lang/es') ?>">Español (ES)</a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item <?= service('request')->getLocale() === 'en' ? 'fw-bold' : '' ?>"
+                            href="<?= base_url('lang/en') ?>">English (EN)</a>
+                    </li>
                 </ul>
             </div>
-            
-            <div class="d-none d-md-block" style="width: 1px; height: 24px; background-color: var(--border-color);"></div>
-            
+
+            <div class="d-none d-md-block" style="width: 1px; height: 24px; background-color: var(--border-color);">
+            </div>
+
             <span class="text-muted d-none d-md-inline"><i class="bi bi-person-circle me-1"></i> Admin</span>
-            <a href="<?= base_url('logout_secretaria') ?>" class="btn-logout"><i class="bi bi-box-arrow-right me-1"></i> Sortir</a>
+            <a href="<?= base_url('logout_secretaria') ?>" class="btn-logout"><i class="bi bi-box-arrow-right me-1"></i>
+                Sortir</a>
         </div>
     </header>
 
     <main class="container">
-        
+
         <div class="header-section d-flex justify-content-between align-items-center">
             <div class="d-flex align-items-center">
                 <a href="<?= base_url('private/dashboard') ?>" class="btn-back"><i class="bi bi-arrow-left"></i></a>
@@ -207,11 +251,13 @@
                     <div class="col-md-4">
                         <label class="form-label text-muted small fw-semibold mb-1">Cercar</label>
                         <div class="input-group">
-                            <span class="input-group-text bg-light border-end-0 text-muted"><i class="bi bi-search"></i></span>
-                            <input type="text" name="q" class="form-control custom-input border-start-0 ps-0" placeholder="Nom, DNI, o Núm. Matrícula...">
+                            <span class="input-group-text bg-light border-end-0 text-muted"><i
+                                    class="bi bi-search"></i></span>
+                            <input type="text" name="q" class="form-control custom-input border-start-0 ps-0"
+                                placeholder="Nom, DNI, o Núm. Matrícula...">
                         </div>
                     </div>
-                    
+
                     <div class="col-md-3">
                         <label class="form-label text-muted small fw-semibold mb-1">Estat</label>
                         <select name="estat" class="form-select custom-input">
@@ -303,4 +349,5 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>

@@ -47,4 +47,8 @@ $routes->group('private', ['filter' => 'authSecretaria'], function ($routes) {
     
     // Para el formulario del Modal de "Solicitar Corrección"
     $routes->post('solicitar_correccion/(:num)', 'AdminController::solicitarCorreccion/$1');
+
+
+
+    $routes->get('lang/(:segment)', 'IdiomaController::cambiar/$1');
 });
