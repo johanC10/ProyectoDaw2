@@ -8,16 +8,6 @@ class CaparrellaSchema extends Migration
 {
     public function up()
     {
-        // 1. usuaris_secretaria
-        $this->forge->addField([
-            'id' => ['type' => 'INT', 'unsigned' => true, 'auto_increment' => true],
-            'usuari' => ['type' => 'VARCHAR', 'constraint' => '100', 'unique' => true],
-            'password_hash' => ['type' => 'VARCHAR', 'constraint' => '255'],
-            'rol' => ['type' => 'VARCHAR', 'constraint' => '50'], // admin, direccio, secretaria
-            'data_ultim_acces' => ['type' => 'DATETIME', 'null' => true],
-        ]);
-        $this->forge->addKey('id', true);
-        $this->forge->createTable('usuaris_secretaria', true);
 
         // 2. etapes
         $this->forge->addField([
@@ -84,10 +74,12 @@ class CaparrellaSchema extends Migration
             'id_poble' => ['type' => 'INT', 'unsigned' => true],
             'tsi' => ['type' => 'VARCHAR', 'constraint' => '50', 'null' => true],
             'mutua' => ['type' => 'VARCHAR', 'constraint' => '100', 'null' => true],
+            'id_user' => ['type' => 'INT', 'unsigned' => true, 'null' => true], // FK a Shield
             'data_creacio' => ['type' => 'DATETIME'],
         ]);
         $this->forge->addKey('id', true);
         $this->forge->addForeignKey('id_poble', 'pobles', 'id', 'RESTRICT', 'CASCADE');
+        $this->forge->addForeignKey('id_user', 'users', 'id', 'SET NULL', 'CASCADE');
         $this->forge->createTable('persones', true);
 
         // 8. tutories
@@ -224,6 +216,5 @@ class CaparrellaSchema extends Migration
         $this->forge->dropTable('tandes', true);
         $this->forge->dropTable('cursos', true);
         $this->forge->dropTable('etapes', true);
-        $this->forge->dropTable('usuaris_secretaria', true);
     }
 }

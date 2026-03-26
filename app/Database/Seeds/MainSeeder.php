@@ -3,6 +3,8 @@
 namespace App\Database\Seeds;
 
 use CodeIgniter\Database\Seeder;
+use CodeIgniter\Shield\Entities\User;
+use CodeIgniter\Shield\Models\UserModel;
 
 class MainSeeder extends Seeder
 {
@@ -28,15 +30,27 @@ class MainSeeder extends Seeder
         $db->table('tandes')->truncate();
         $db->table('cursos')->truncate();
         $db->table('etapes')->truncate();
-        $db->table('usuaris_secretaria')->truncate();
         $db->query('SET FOREIGN_KEY_CHECKS = 1');
 
-        // 2. CREAR USUARIO ADMIN PRINCIPAL
-        $db->table('usuaris_secretaria')->insert([
-            'usuari' => 'admin_caparrella',
-            'password_hash' => password_hash('secreto123', PASSWORD_BCRYPT),
-            'rol' => 'admin',
+        // 2. CREAR USUARIO ADMIN PRINCIPAL (SHIELD)
+        $users = new UserModel();
+        
+        // Limpiar el usuario si ya existiera de un seed anterior
+        $existingDb = $users->where('username', 'admin_caparrella')->first();
+        if ($existingDb) {
+            $users->delete($existingDb->id, true);
+        }
+
+        $user = new User([
+            'username' => 'admin_caparrella',
+            'email'    => 'admin@caparrella.cat',
+            'password' => 'secreto123',
         ]);
+        $users->save($user);
+
+        // Asignar el grupo de administrador
+        $user = $users->findById($users->getInsertID());
+        $user->addGroup('admin');
 
         // 3. SEED DE POBLES (A modo de ejemplo)
         $poblesData = [

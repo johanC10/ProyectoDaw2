@@ -8,15 +8,15 @@ Este documento desglosa toda la estructura de carpetas y archivos que **hemos cr
 
 *   **`Routes.php`**: El "mapa de carreteras" del sistema. Aquí le indicamos a la web qué archivo cargar dependiendo de la URL (ej. `/private/dashboard` carga el `AdminController`). También hemos definido "Grupos Protegidos" para evitar que alguien sin permisos acceda a rutas de administración.
 *   **`Database.php`**: El puente entre nuestro código PHP y tu servidor XAMPP. Aquí definimos que nos conectamos a la base de datos `p_matricula_caparrella` usando el usuario `root`.
-
+*   **`Auth.php` & `AuthGroups.php`**: *(Nuevos con Shield)* Controlan toda la seguridad nativa del programa. En `AuthGroups` configuramos los 3 roles inquebrantables: `admin`, `secretaria` y `estudiante` (registro invisible de alumnos).
 ---
 
 ## 2. 🗄️ Base de Datos (`app/Database/`)
 
 Esta carpeta es vital porque define físicamente cómo se guarda la información, de modo que cualquier programador en el futuro pueda replicar tu sistema con dos comandos.
 
-*   **`Migrations/2026-03-25-..._CaparrellaSchema.php`**: Es el "plano arquitectónico" de tu base de datos. Este archivo mediante código construye las **17 tablas relacionales** súper optimizadas para el instituto (desde `persones`, `cursos`, `matricules` hasta `inventari_taquilles`), interconectadas con claves foráneas para que la base de datos sea indestructible a fallos de consistencia.
-*   **`Seeds/MainSeeder.php`**: El "inyector de datos de prueba". Este script purga la base de datos y la rellena automáticamente con tu usuario administrador (`admin_caparrella`), las 4 etapas educativas, los 22 cursos específicos reales que me pasaste, y matricula alumnos falsos al azar en todos ellos para tener datos de prueba.
+*   **`Migrations/2026-03-25-..._CaparrellaSchema.php`**: Es el "plano arquitectónico" de tu base de datos. Construye **16 tablas relacionales** súper optimizadas para el instituto (cursos, matricules, inventari_taquilles). *(Nota: La antigua tabla `usuaris_secretaria` fue demolida y reemplazada por las 6 tablas profesionales que inyecta CodeIgniter Shield, vinculando la tabla `persones` mediante la clave foránea `id_user` para lograr el Expediente Único).*
+*   **`Seeds/MainSeeder.php`**: El "inyector de datos de prueba". Purga la base de datos y la rellena automáticamente invocando a la API de Shield para crear el usuario administrador (`admin_caparrella`), las 4 etapas educativas, los 22 cursos específicos, y cientos de alumnos falsos generados algorítmicamente.
 
 ---
 
@@ -24,8 +24,8 @@ Esta carpeta es vital porque define físicamente cómo se guarda la información
 
 Los Modelos son los traductores. Cada archivo representa una tabla de la base de datos. Tu código jamás usa código "SQL puro", sino que usamos estos modelos para hablar con la base de datos en lenguaje seguro.
 
-*   **`UsuarioSecretariaModel.php`**: Gestiona las contraseñas, los roles y las fechas de acceso de la tabla `usuaris_secretaria`.
-*   **`PersonaModel.php`**: Se asocia a la tabla `persones`. Gestiona todos los datos biográficos de los alumnos (DNI, nombre, edad, dirección).
+*   **`UserModel.php` (Nativo de Shield)**: Sustituye a tu antiguo script manual. Gestiona de forma encriptada las identidades, los inicios de sesión, y la protección contra ataques de fuerza bruta.
+*   **`PersonaModel.php`**: Se asocia a la tabla `persones`. Gestiona todos los datos biográficos de los alumnos (DNI, nombre, edad, dirección) y los enlaza a su *Cuenta Invisible* de Shield.
 *   **`MatriculaModel.php`**: El núcleo de las solicitudes. Gestiona la tabla `matricules`. **Destacado:** En este modelo activamos la función `$useSoftDeletes = true;`, lo que significa que al eliminar una matrícula, no desaparece; solo se oculta para ir a parar a la Papelera.
 *   **`EtapaModel.php` & `CursoModel.php`**: Modelos auxiliares para traer la información de la jerarquía escolar.
 
@@ -33,8 +33,8 @@ Los Modelos son los traductores. Cada archivo representa una tabla de la base de
 
 ## 4. 🛂 Filtros de Seguridad (`app/Filters/`)
 
-*   **`AuthSecretaria.php`**: Es nuestro portero de discoteca. Este script se ejecuta **antes** de cargar cualquier página que empiece por `/private`. Si el usuario no tiene la sesión activa de secretario, lo bloquea y lo manda de una patada al Login.
-*   **`AuthEstudiante.php`**: Creado como barrera paralela para cuando construyamos la zona pública del alumno.
+*   **`AuthSecretaria.php`**: Nuestro antiguo filtro manual, ahora reescrito e integrado con los filtros nativos de **Shield** (`session`, `tokens`). Bloquea sin compasión a los usuarios que no han validado su sesión.
+*   **`AuthEstudiante.php`**: Filtro paralelo que gobernarán las *Cuentas Invisibles* de los alumnos cuando entren a mirar el estado de sus trámites públicos.
 
 ---
 
@@ -42,7 +42,7 @@ Los Modelos son los traductores. Cada archivo representa una tabla de la base de
 
 Son los "cerebros" o "directores de orquesta". Reciben el clic del usuario, recogen datos de los Modelos (BBDD) y deciden qué Vista (HTML) pintar en la pantalla.
 
-*   **`Auth_secretaria.php`**: El cerebro del Login. Captura las credenciales, encripta la contraseña escrita con `password_verify()` para compararla con seguridad y, si coinciden, crea la Sesión. También contiene tu mecanismo de simulación de "Recuperar Contraseña".
+*   **`Auth_secretaria.php`**: El cerebro del Login de administración. Ahora en lugar de validar a mano con `password_verify`, usa la potente función `auth()->attempt()` de Shield, lo que nos brinda seguridad de nivel militar (autobloqueo de IP, control de roles inyectados directamente a las variables de sesión).
 *   **`AdminController.php`**: El controlador más grande y complejo. Controla absolutamente todo lo que hace secretaría:
     *   Genera las estadísticas globales para pintar el Dashboard interactivo.
     *   Busca y agrupa formaciones con un algoritmo complejo tipo JOIN.
@@ -58,8 +58,9 @@ Tienen subcarpetas para `ca/`, `es/`, `en/`. Aquí "escondemos" el texto para no
 
 *   **`Cursos.php`**: Contiene la traducción para los nombres larguísimos de los ciclos superiores de FP, la ESO y las familias profesionales.
 *   **`Dashboard.php`**: Textos generales del panel inicial (Totales, pendients, barra de búsqueda).
-*   **`LoginAdmin.php`**: Diccionario entero de la pantalla de Login y mensajes de error (Recuperar cuenta, credenciales inválidas).
+*   **`LoginAdmin.php`**: Diccionario entero de la pantalla de Login y mensajes de recuperación de cuenta invisible.
 *   **`ListadoMatriculas.php`**: Traducciones exclusivas de las tablas (DNI, botones, alertas de borrado).
+*   **`FichaValidacion.php`**: *(Nuevo)* Contiene absolutamente todas las claves textuales requeridas por la vista `validacion_detalle`, permitiendo que la ficha médica, académica y los tooltips cambien fluidamente de idioma.
 
 ---
 

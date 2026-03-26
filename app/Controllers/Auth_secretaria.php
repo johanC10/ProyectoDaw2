@@ -19,20 +19,21 @@ class Auth_secretaria extends BaseController
 
     public function processLoginSecretaria()
     {
-        $usuario = $this->request->getPost('usuario');
-        $password = $this->request->getPost('password');
+        $credentials = [
+            'username' => $this->request->getPost('usuario'),
+            'password' => $this->request->getPost('password')
+        ];
 
-        $usuarioModel = new \App\Models\UsuarioSecretariaModel();
-        $user = $usuarioModel->where('usuari', $usuario)->first();
-
-        if ($user && password_verify($password, $user['password_hash'])) {
-            // Update last access
-            $usuarioModel->update($user['id'], ['data_ultim_acces' => date('Y-m-d H:i:s')]);
-
+        // Validamos usando el núcleo inquebrantable de Shield
+        if (auth()->attempt($credentials)->isOK()) {
+            $user = auth()->user();
+            
             session()->set('secretaria_validada', true);
-            session()->set('secretaria_id', $user['id']);
-            session()->set('secretaria_rol', $user['rol']);
-            session()->set('secretaria_name', $user['usuari']);
+            session()->set('secretaria_id', $user->id);
+            // Cogemos el primer grupo que tenga asignado (ej. 'admin' o 'secretaria')
+            $groups = $user->getGroups();
+            session()->set('secretaria_rol', !empty($groups) ? $groups[0] : 'admin');
+            session()->set('secretaria_name', $user->username);
             
             return redirect()->to('/private/dashboard');
         } else {
@@ -42,10 +43,8 @@ class Auth_secretaria extends BaseController
 
     public function recoverPassword()
     {
-        $usuario = $this->request->getPost('recover_user');
-        $usuarioModel = new \App\Models\UsuarioSecretariaModel();
-        
-        $user = $usuarioModel->where('usuari', $usuario)->first();
+        // En Shield, se mandaría un email oficial aquí. 
+        // Recuperamos el input pero respondemos genéricamente.
 
         // Por seguridad, siempre devolvemos el mismo mensaje, exista o no
         return redirect()->to('/auth/secretaria')->with('success', lang('LoginAdmin.msg_recovery_sent') ?? 'Si estàs donat d\'alta, s\'enviarà un enllaç de recuperació al teu correu associat.');
@@ -65,7 +64,7 @@ class Auth_secretaria extends BaseController
 
     public function logout()
     {
-        
+        auth()->logout();
         session()->destroy();
         return redirect()->to('/auth/secretaria');
     }

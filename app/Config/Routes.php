@@ -6,6 +6,7 @@ use CodeIgniter\Router\RouteCollection;
  * @var RouteCollection $routes
  */
 $routes->get('/', 'Home::index');
+$routes->get('/inicio', 'Home::inicio');
 
 $routes->get('lang/(:segment)', 'IdiomaController::cambiar/$1');
 
@@ -25,13 +26,21 @@ $routes->get('/logout_secretaria', 'Auth_secretaria::logout');
 
 // --- Grupo protegido (Formulario) ---
 $routes->group('formulario', ['filter' => 'authEstudiante'], function ($routes) {
+    // Vistas
     $routes->get('paso1', 'Formulario::paso1');
     $routes->get('paso2', 'Formulario::paso2');
     $routes->get('paso3', 'Formulario::paso3');
     $routes->get('paso4', 'Formulario::paso4');
     $routes->get('paso5', 'Formulario::paso5');
-});
+    $routes->get('exito', 'Formulario::exito');
 
+    // Procesadores de datos
+    $routes->post('guardarPaso1', 'Formulario::guardarPaso1');
+    $routes->post('guardarPaso2', 'Formulario::guardarPaso2');
+    $routes->post('guardarPaso3', 'Formulario::guardarPaso3');
+    $routes->post('guardarPaso4', 'Formulario::guardarPaso4');
+    $routes->post('finalizar', 'Formulario::finalizar');
+});
 // --- GRUPO PROTEGIDO DE SECRETARÍA ---
 $routes->group('private', ['filter' => 'authSecretaria'], function ($routes) {
     

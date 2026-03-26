@@ -9,4 +9,9 @@ class Home extends BaseController
         return view('public/inicio_proceso');
     }
 
+    public function inicio(): string
+    {
+        return $this->index();
+    }
+
 }
