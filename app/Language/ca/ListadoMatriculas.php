@@ -26,6 +26,7 @@ return [
     // Badges y Acciones
     'badge_pendent' => 'Pendent',
     'badge_validada' => 'Validada',
+    'badge_rebutjada' => 'Rebutjada',
     'accion_revisar' => 'Revisar',
     'accion_veure' => 'Veure Fitxa',
     
@@ -33,4 +34,9 @@ return [
     'tooltip_dni' => 'DNI Adjuntat',
     'tooltip_tsi' => 'TSI Adjuntada',
     'tooltip_pagament' => 'Pagament Adjuntat',
+    
+    // Papelera
+    'btn_papelera' => 'Paperera',
+    'tooltip_papelera' => 'Moure a la paperera',
+    'confirm_papelera' => 'Segur que vols moure aquesta matrícula a la paperera?',
 ];

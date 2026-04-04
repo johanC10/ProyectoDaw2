@@ -1,0 +1,54 @@
+﻿
+CodeIgniter v4.7.0 Command Line Tool - Server Time: 2026-03-25 21:56:02 UTC+00:00
+
+[CodeIgniter\Database\Exceptions\DatabaseException]
+Table 'p_matricula_caparrella.cursos' doesn't exist
+at SYSTEMPATH\Database\BaseConnection.php:724
+
+  Caused by:
+  [CodeIgniter\Database\Exceptions\DatabaseException]
+  Table 'p_matricula_caparrella.cursos' doesn't exist
+  at SYSTEMPATH\Database\MySQLi\Connection.php:310
+
+  Caused by:
+  [mysqli_sql_exception]
+  Table 'p_matricula_caparrella.cursos' doesn't exist
+  at SYSTEMPATH\Database\MySQLi\Connection.php:300
+
+Backtrace:
+  1    SYSTEMPATH\Database\MySQLi\Connection.php:300
+       mysqli()->query('TRUNCATE `cursos`', 0)
+
+  2    SYSTEMPATH\Database\BaseConnection.php:769
+       CodeIgniter\Database\MySQLi\Connection()->execute('TRUNCATE `cursos`')
+
+  3    SYSTEMPATH\Database\BaseConnection.php:686
+       CodeIgniter\Database\BaseConnection()->simpleQuery('TRUNCATE `cursos`')
+
+  4    SYSTEMPATH\Database\BaseBuilder.php:2773
+       CodeIgniter\Database\BaseConnection()->query('TRUNCATE `cursos`', null, false)
+
+  5    APPPATH\Database\Seeds\MainSeeder.php:34
+       CodeIgniter\Database\BaseBuilder()->truncate()
+
+  6    SYSTEMPATH\Database\Seeder.php:155
+       App\Database\Seeds\MainSeeder()->run()
+
+  7    SYSTEMPATH\Commands\Database\Seed.php:79
+       CodeIgniter\Database\Seeder()->call('App\\Database\\Seeds\\MainSeeder')
+
+  8    SYSTEMPATH\CLI\Commands.php:74
+       CodeIgniter\Commands\Database\Seed()->run([])
+
+  9    SYSTEMPATH\CLI\Console.php:47
+       CodeIgniter\CLI\Commands()->run('db:seed', [...])
+
+ 10    SYSTEMPATH\Boot.php:442
+       CodeIgniter\CLI\Console()->run()
+
+ 11    SYSTEMPATH\Boot.php:166
+       CodeIgniter\Boot::runCommand(Object(CodeIgniter\CLI\Console))
+
+ 12    ROOTPATH\spark:87
+       CodeIgniter\Boot::bootSpark(Object(Config\Paths))
+

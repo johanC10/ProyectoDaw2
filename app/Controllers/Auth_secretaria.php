@@ -19,20 +19,36 @@ class Auth_secretaria extends BaseController
 
     public function processLoginSecretaria()
     {
-        
         $usuario = $this->request->getPost('usuario');
         $password = $this->request->getPost('password');
 
-        
-        if ($usuario === 'admin' && $password === '1234') {
-            
+        $usuarioModel = new \App\Models\UsuarioSecretariaModel();
+        $user = $usuarioModel->where('usuari', $usuario)->first();
+
+        if ($user && password_verify($password, $user['password_hash'])) {
+            // Update last access
+            $usuarioModel->update($user['id'], ['data_ultim_acces' => date('Y-m-d H:i:s')]);
+
             session()->set('secretaria_validada', true);
+            session()->set('secretaria_id', $user['id']);
+            session()->set('secretaria_rol', $user['rol']);
+            session()->set('secretaria_name', $user['usuari']);
+            
             return redirect()->to('/private/dashboard');
-            
         } else {
-            
             return redirect()->to('/auth/secretaria')->with('error', 'Usuari o contrasenya incorrecta');
         }
+    }
+
+    public function recoverPassword()
+    {
+        $usuario = $this->request->getPost('recover_user');
+        $usuarioModel = new \App\Models\UsuarioSecretariaModel();
+        
+        $user = $usuarioModel->where('usuari', $usuario)->first();
+
+        // Por seguridad, siempre devolvemos el mismo mensaje, exista o no
+        return redirect()->to('/auth/secretaria')->with('success', lang('LoginAdmin.msg_recovery_sent') ?? 'Si estàs donat d\'alta, s\'enviarà un enllaç de recuperació al teu correu associat.');
     }
 
     

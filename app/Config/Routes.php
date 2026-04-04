@@ -19,6 +19,7 @@ $routes->get('/logout', 'Auth_estudiantes::logout');
 // --- Secretaria ---
 $routes->get('/auth/secretaria', 'Auth_secretaria::loginSecretaria');
 $routes->post('/process_login_secretaria', 'Auth_secretaria::processLoginSecretaria');
+$routes->post('/recover_password_secretaria', 'Auth_secretaria::recoverPassword');
 $routes->get('/validar_secretaria', 'Auth_secretaria::validarSecretaria');
 $routes->get('/logout_secretaria', 'Auth_secretaria::logout');
 
@@ -50,6 +51,9 @@ $routes->group('private', ['filter' => 'authSecretaria'], function ($routes) {
     // Para el formulario del Modal de "Solicitar Corrección"
     $routes->post('solicitar_correccion/(:num)', 'AdminController::solicitarCorreccion/$1');
 
-
+    // --- GESTIÓN DE PAPELERA ---
+    $routes->get('papelera', 'AdminController::papelera');
+    $routes->get('matricula/archivar/(:num)', 'AdminController::archivarMatricula/$1');
+    $routes->post('matricula/restaurar/(:num)', 'AdminController::restaurarMatricula/$1');
 
 });

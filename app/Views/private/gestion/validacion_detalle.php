@@ -13,11 +13,11 @@
             --bg-body: #f8fafc; --bg-card: #ffffff;
             --text-main: #0f172a; --text-muted: #64748b;
             --border-color: #e2e8f0; --color-light: #f1f5f9;
-            --color-primary: #3b82f6; --color-success: #10b981;
-            --color-warning: #f59e0b; --color-danger: #ef4444;
+            --color-primary: #6d79ce; --color-success: #24c87e;
+            --color-warning: #f5a623; --color-danger: #ef233c;
         }
 
-        body { background: var(--bg-body); color: var(--text-main); font-family: system-ui, sans-serif; padding-bottom: 5rem; }
+        body { background: var(--bg-page); color: var(--text-main); font-family: system-ui, sans-serif; padding-bottom: 5rem; }
         
         /* Utilidades y Tarjetas */
         .info-card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 12px; padding: 1.5rem; margin-bottom: 1.5rem; }
@@ -54,10 +54,10 @@
         
         <div class="d-flex justify-content-between align-items-start mb-4">
             <div class="d-flex gap-3">
-                <a href="<?= base_url('private/curso/1') ?>" class="text-dark fs-4"><i class="bi bi-arrow-left"></i></a>
+                <a href="<?= base_url('private/curso/' . $curso['id']) ?>" class="text-dark fs-4"><i class="bi bi-arrow-left"></i></a>
                 <div>
-                    <h2 class="fw-bold mb-0">María García López</h2>
-                    <span class="text-muted small"><?= lang('Cursos.curso_1') ?> · <?= lang('FichaValidacion.texto_matricula_de') ?> 25/2/2026</span>
+                    <h2 class="fw-bold mb-0"><?= esc($estudiante['nom'] . ' ' . $estudiante['cognom1'] . ' ' . $estudiante['cognom2']) ?></h2>
+                    <span class="text-muted small"><?= lang('Cursos.' . $curso['nom_curs']) ?> · <?= lang('FichaValidacion.texto_matricula_de') ?> <?= $fecha ?></span>
                 </div>
             </div>
             
@@ -72,11 +72,33 @@
                         <li><a class="dropdown-item <?= service('request')->getLocale() === 'en' ? 'fw-bold' : '' ?>" href="<?= base_url('lang/en') ?>">English</a></li>
                     </ul>
                 </div>
-                <span class="badge border text-dark bg-white px-3 py-2 rounded-pill"><?= lang('FichaValidacion.badge_pendiente') ?></span>
+                
+                <?php
+                    $badgeClass = 'bg-white';
+                    if ($matricula['estat'] === 'pendent') $badgeClass = 'bg-warning text-dark';
+                    if ($matricula['estat'] === 'validat') $badgeClass = 'bg-success text-white';
+                    if ($matricula['estat'] === 'rebutjat') $badgeClass = 'bg-danger text-white';
+                ?>
+                <span class="badge border <?= $badgeClass ?> px-3 py-2 rounded-pill"><?= strtoupper($matricula['estat']) ?></span>
             </div>
         </div>
 
-        <form action="<?= base_url('private/procesar_matricula/1') ?>" method="post">
+
+        <?php if (session()->getFlashdata('success')): ?>
+            <div class="alert alert-success alert-dismissible fade show border-0 shadow-sm" role="alert">
+                <i class="bi bi-check-circle-fill me-2"></i> <?= session()->getFlashdata('success') ?>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        <?php endif; ?>
+
+        <?php if (session()->getFlashdata('error')): ?>
+            <div class="alert alert-danger alert-dismissible fade show border-0 shadow-sm" role="alert">
+                <i class="bi bi-exclamation-circle-fill me-2"></i> <?= session()->getFlashdata('error') ?>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        <?php endif; ?>
+
+        <form action="<?= base_url('private/procesar_matricula/' . $matricula['id']) ?>" method="post">
             <?= csrf_field() ?>
 
             <div class="row g-3 mb-3">
@@ -85,19 +107,19 @@
                         <div class="card-title-sm"><i class="bi bi-person me-2"></i><?= lang('FichaValidacion.card_personales') ?></div>
                         <div class="row">
                             <div class="col-md-4">
-                                <div class="data-label"><?= lang('FichaValidacion.lbl_nombre') ?></div><div class="data-value">María García López</div>
-                                <div class="data-label"><?= lang('FichaValidacion.lbl_email') ?></div><div class="data-value">maria@ejemplo.com</div>
+                                <div class="data-label"><?= lang('FichaValidacion.lbl_nombre') ?></div><div class="data-value"><?= esc($estudiante['nom'] . ' ' . $estudiante['cognom1'] . ' ' . $estudiante['cognom2']) ?></div>
+                                <div class="data-label"><?= lang('FichaValidacion.lbl_email') ?></div><div class="data-value"><?= esc($estudiante['email']) ?></div>
                             </div>
                             <div class="col-md-4">
-                                <div class="data-label"><?= lang('FichaValidacion.lbl_dni') ?></div><div class="data-value">12345678A</div>
-                                <div class="data-label"><?= lang('FichaValidacion.lbl_telefono') ?></div><div class="data-value">612 345 678</div>
+                                <div class="data-label"><?= lang('FichaValidacion.lbl_dni') ?></div><div class="data-value"><?= esc($estudiante['identificacio']) ?></div>
+                                <div class="data-label"><?= lang('FichaValidacion.lbl_telefono') ?></div><div class="data-value text-muted fst-italic"><?= esc($estudiante['telefon'] ?? 'Sin teléfono') ?></div>
                             </div>
                             <div class="col-md-4">
-                                <div class="data-label"><?= lang('FichaValidacion.lbl_tsi') ?></div><div class="data-value">TSE123456789</div>
-                                <div class="data-label"><?= lang('FichaValidacion.lbl_derechos') ?></div><div class="data-value text-danger"><i class="bi bi-x"></i> <?= lang('FichaValidacion.val_no_aceptados') ?></div>
+                                <div class="data-label"><?= lang('FichaValidacion.lbl_tsi') ?></div><div class="data-value text-muted fst-italic"><?= esc($estudiante['tsi'] ?? 'No disponible') ?></div>
+                                <div class="data-label"><?= lang('FichaValidacion.lbl_derechos') ?></div><div class="data-value <?= $matricula['data_firma_imatge'] ? 'text-success' : 'text-danger' ?>"><i class="bi <?= $matricula['data_firma_imatge'] ? 'bi-check' : 'bi-x' ?>"></i> <?= $matricula['data_firma_imatge'] ? 'Aceptados' : lang('FichaValidacion.val_no_aceptados') ?></div>
                             </div>
                             <div class="col-12">
-                                <div class="data-label"><?= lang('FichaValidacion.lbl_direccion') ?></div><div class="data-value mb-0">Calle Mayor 15, 2ºB, Madrid 28001</div>
+                                <div class="data-label"><?= lang('FichaValidacion.lbl_direccion') ?></div><div class="data-value mb-0"><?= esc($estudiante['adreca']) ?></div>
                             </div>
                         </div>
                     </div>
@@ -127,14 +149,14 @@
                     <div class="info-card h-100 mb-0">
                         <div class="card-title-sm"><i class="bi bi-mortarboard me-2"></i><?= lang('FichaValidacion.card_academica') ?></div>
                         <div class="d-flex gap-4 mb-2">
-                            <div><div class="data-label"><?= lang('FichaValidacion.lbl_tipo') ?></div><div class="data-value mb-1"><?= lang('FichaValidacion.val_nuevo') ?></div></div>
-                            <div><div class="data-label"><?= lang('FichaValidacion.lbl_curso') ?></div><div class="data-value mb-1"><?= lang('Cursos.curso_1') ?></div></div>
+                            <div><div class="data-label"><?= lang('FichaValidacion.lbl_tipo') ?></div><div class="data-value mb-1"><?= ucfirst($matricula['tipus_alumne']) ?></div></div>
+                            <div><div class="data-label"><?= lang('FichaValidacion.lbl_curso') ?></div><div class="data-value mb-1"><?= lang('Cursos.' . $curso['nom_curs']) ?></div></div>
                         </div>
                         <div class="data-label"><?= lang('FichaValidacion.lbl_optativas') ?></div>
                         <div class="mb-2 small">
                             <span class="opt-badge">1</span> Francés &nbsp; <span class="opt-badge">2</span> Tecnología
                         </div>
-                        <div class="total-box"><?= lang('FichaValidacion.lbl_total') ?>: <strong>€380.00</strong></div>
+                        <div class="total-box"><?= lang('FichaValidacion.lbl_total') ?>: <strong>€<?= number_format($matricula['import_total'], 2) ?></strong></div>
                     </div>
                 </div>
             </div>
@@ -171,7 +193,7 @@
 
             <div class="info-card mb-4">
                 <div class="card-title-sm"><?= lang('FichaValidacion.card_notas') ?></div>
-                <textarea name="notas" class="form-control" rows="3" placeholder="<?= lang('FichaValidacion.ph_notas') ?>" style="background:#f8fafc; border-color:#e2e8f0;"></textarea>
+                <textarea name="notas" class="form-control" rows="3" placeholder="<?= lang('FichaValidacion.ph_notas') ?>" style="background:#f8fafc; border-color:#e2e8f0;"><?= esc($matricula['notes_admin']) ?></textarea>
             </div>
 
             <div class="action-bar px-4">
@@ -191,10 +213,10 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
                 
-                <form action="<?= base_url('private/solicitar_correccion/1') ?>" method="post" enctype="multipart/form-data">
+                <form action="<?= base_url('private/solicitar_correccion/' . $matricula['id']) ?>" method="post" enctype="multipart/form-data">
                     <?= csrf_field() ?>
                     <div class="modal-body pt-2">
-                        <p class="text-muted small mb-3"><?= lang('FichaValidacion.modal_desc_1') ?> <strong>maria@ejemplo.com</strong> <?= lang('FichaValidacion.modal_desc_2') ?></p>
+                        <p class="text-muted small mb-3"><?= lang('FichaValidacion.modal_desc_1') ?> <strong><?= esc($estudiante['email']) ?></strong> <?= lang('FichaValidacion.modal_desc_2') ?></p>
                         
                         <div class="mb-3">
                             <label class="fw-medium small mb-1"><?= lang('FichaValidacion.lbl_mensaje') ?></label>

@@ -1,12 +1,12 @@
 <?php
 return [
-    'titulo_pestana' => 'Secretariat Dashboard - Institut Caparrella',
-    'header_secretaria' => 'Secretariat',
-    'btn_salir' => 'Logout',
+    'titulo_pestana' => 'Administration Dashboard - Institut Caparrella',
+    'header_secretaria' => 'Administration',
+    'btn_salir' => 'Sign Out',
     
-    'stat_total' => 'Total Enrollments',
-    'stat_pendientes' => 'Pending Validation',
-    'stat_validadas' => 'Validated (Accepted)',
+    'stat_total' => 'Total Applications',
+    'stat_pendientes' => 'Pending Review',
+    'stat_validadas' => 'Approved Applications',
     
     'etapa_eso' => 'Middle School (E.S.O.)',
     'etapa_batxillerat' => 'High School (Batxillerat)',
@@ -19,6 +19,12 @@ return [
     'badge_1_curso' => '1 Course',
     'badge_multiples' => 'Multiple specialties',
     
-    'label_alumnos' => 'Students',
-    'label_puntos' => 'Pend.', // Abbreviation for Pending
+    'label_alumnos' => 'Applications',
+    'label_puntos' => 'pending', 
+
+    // Nuevos elementos UI
+    'vista_general' => 'Overview',
+    'buscar_ph' => 'Search course (Ex: CFGM, IT)...',
+    'formaciones_ancladas' => 'Pinned Courses',
+    'tooltip_pin' => 'Pin / Unpin',
 ];

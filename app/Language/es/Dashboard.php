@@ -21,4 +21,10 @@ return [
     
     'label_alumnos' => 'Alumnos',
     'label_puntos' => 'Ptes.', // Abreviatura de Pendientes
+
+    // Nuevos elementos UI
+    'vista_general' => 'Vista General',
+    'buscar_ph' => 'Buscar formación (Ej: CFGM, Informática)...',
+    'formaciones_ancladas' => 'Formaciones Ancladas',
+    'tooltip_pin' => 'Anclar / Desanclar',
 ];
