@@ -23,7 +23,6 @@ class Auth_secretaria extends BaseController
             
             // Y lo enviamos directamente al panel (saltando el paso del código por ahora)
             return redirect()->to('/private/dashboard');
-            
         } else {
             // Si falla, lo devolvemos al login con un mensaje de error
             return redirect()->to('/auth/secretaria')->with('error', 'Dades incorrectes. Prova amb usuari: admin / pass: 1234');

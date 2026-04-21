@@ -41,141 +41,162 @@
                     <form action="<?= base_url('formulario/guardar_paso1') ?>" method="post">
                         <?= csrf_field() ?>
 
-                        <!-- 1. DATOS MATRÍCULA -->
-                        <h5 class="section-title">1. Dades de la matrícula</h5>
+                    <!-- DATOS PERSONALES -->
+                    <h5 class="mb-3">Dades de l'alumne/a</h5>
 
-                        <div class="row mb-3">
-                            <div class="col-md-4">
-                                <label>Any escolar</label>
-                                <input type="text" name="any_escolar" class="form-control" placeholder="2025 / 2026">
-                            </div>
-                            <div class="col-md-4">
-                                <label>Curs</label>
-                                <input type="text" name="curs" class="form-control">
-                            </div>
-                            <div class="col-md-4">
-                                <label>Cicle Formatiu</label>
-                                <input type="text" name="cicle_formatiu" class="form-control">
-                            </div>
+                    <div class="row mb-3">
+
+                        <div class="col-md-6">
+                            <label class="form-label">Cognoms i nom</label>
+                            <input type="text" class="form-control" name="nombre">
                         </div>
 
-                        <!-- 2. DATOS PERSONALES -->
-                        <h5 class="section-title">2. Dades personals</h5>
-
-                        <div class="mb-3">
-                            <label>Cognoms i nom de l’alumne/a</label>
-                            <input type="text" name="nom_complet" class="form-control" required>
+                        <div class="col-md-6">
+                            <label class="form-label">DNI</label>
+                            <input type="text" class="form-control" name="dni">
                         </div>
 
-                        <div class="row mb-3">
-                            <div class="col-md-4">
-                                <label>DNI</label>
-                                <input type="text" name="dni" class="form-control">
-                            </div>
-                            <div class="col-md-4">
-                                <label>Data de naixement</label>
-                                <input type="date" name="data_naixement" class="form-control">
-                            </div>
-                            <div class="col-md-4">
-                                <label>Població de naixement</label>
-                                <input type="text" name="poblacio_naixement" class="form-control">
-                            </div>
+                    </div>
+
+                    <div class="row mb-3">
+
+                        <div class="col-md-4">
+                            <label class="form-label">Població de naixement</label>
+                            <input type="text" class="form-control" name="poblacion_nacimiento">
                         </div>
 
-                        <div class="mb-3">
-                            <label>Domicili familiar</label>
-                            <input type="text" name="domicili" class="form-control">
+                        <div class="col-md-4">
+                            <label class="form-label">Data de naixement</label>
+                            <input type="date" class="form-control" name="fecha_nacimiento">
                         </div>
 
-                        <div class="row mb-3">
-                            <div class="col-md-4">
-                                <label>Municipi</label>
-                                <input type="text" name="municipi" class="form-control">
-                            </div>
-                            <div class="col-md-4">
-                                <label>Codi Postal</label>
-                                <input type="text" name="codi_postal" class="form-control">
-                            </div>
-                            <div class="col-md-4">
-                                <label>Telèfon alumne/a</label>
-                                <input type="text" name="telefon_alumne" class="form-control">
-                            </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Tipus Seguretat</label>
+
+                            <select class="form-select" name="seguridad">
+                                <option value="">Selecciona</option>
+                                <option value="tsi">TSI (Seguretat Social) </option>
+                                <option value="mutua">Mútua</option>
+                            </select>
+
                         </div>
 
-                        <div class="mb-3">
-                            <label>Correu electrònic alumne/a</label>
-                            <input type="email" name="email_alumne" class="form-control">
+                    </div>
+
+                    <!-- DIRECCIÓN -->
+                    <h5 class="mt-4 mb-3">Domicili familiar</h5>
+
+                    <div class="row mb-3">
+
+                        <div class="col-md-6">
+                            <label class="form-label">Carrer, número, pis</label>
+                            <input type="text" class="form-control" name="direccion">
                         </div>
 
-                        <!-- DADES PARES -->
-                        <h5 class="section-title">Dades mare/pare/tutors legals</h5>
-
-                        <div class="row mb-3">
-                            <div class="col-md-6">
-                                <label>Nom mare/pare/tutor</label>
-                                <input type="text" name="tutor1_nom" class="form-control">
-                            </div>
-                            <div class="col-md-3">
-                                <label>Telèfon</label>
-                                <input type="text" name="tutor1_telefon" class="form-control">
-                            </div>
-                            <div class="col-md-3">
-                                <label>Email</label>
-                                <input type="email" name="tutor1_email" class="form-control">
-                            </div>
+                        <div class="col-md-3">
+                            <label class="form-label">Municipi</label>
+                            <input type="text" class="form-control" name="municipio">
                         </div>
 
-                        <div class="row mb-4">
-                            <div class="col-md-6">
-                                <label>Nom mare/pare/tutor</label>
-                                <input type="text" name="tutor2_nom" class="form-control">
-                            </div>
-                            <div class="col-md-3">
-                                <label>Telèfon</label>
-                                <input type="text" name="tutor2_telefon" class="form-control">
-                            </div>
-                            <div class="col-md-3">
-                                <label>Email</label>
-                                <input type="email" name="tutor2_email" class="form-control">
-                            </div>
+                        <div class="col-md-3">
+                            <label class="form-label">Codi Postal</label>
+                            <input type="text" class="form-control" name="codigo_postal">
                         </div>
 
-                        <!-- CIRCUMSTANCIAS -->
-                        <h5 class="section-title">Circumstàncies personals</h5>
+                    </div>
 
-                        <div class="mb-3">
-                            <textarea name="circumstancies" class="form-control" rows="3"
-                                placeholder="Malalties o situacions singulars..."></textarea>
+                    <div class="row mb-3">
+
+                        <div class="col-md-4">
+                            <label class="form-label">Telèfon familiar</label>
+                            <input type="text" class="form-control" name="telefono_familiar">
                         </div>
 
-                        <!-- AUTORIZACIÓN -->
-                        <h5 class="section-title">Tramesa d’informació (majors d’edat)</h5>
-
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="autoritzacio" value="si">
-                            <label class="form-check-label">Autoritzo (SÍ)</label>
+                        <div class="col-md-4">
+                            <label class="form-label">Telèfon alumne/a</label>
+                            <input type="text" class="form-control" name="telefono_alumno">
                         </div>
 
-                        <div class="form-check mb-4">
-                            <input class="form-check-input" type="radio" name="autoritzacio" value="no">
-                            <label class="form-check-label">No autoritzo (NO)</label>
+                        <div class="col-md-4">
+                            <label class="form-label">Email alumne/a</label>
+                            <input type="email" class="form-control" name="email_alumno">
                         </div>
 
-                        <div class="d-flex justify-content-between">
-                            <a href="<?= base_url('logout') ?>" class="btn btn-secondary">Sortir</a>
-                            <button type="submit" class="btn btn-primary">Guardar i continuar</button>
+                    </div>
+
+                    <!-- PADRES -->
+                    <h5 class="mt-4 mb-3">Dades mare/pare/tutors</h5>
+
+                    <div class="row mb-3">
+
+                        <div class="col-md-4">
+                            <label class="form-label">Nom tutor/a</label>
+                            <input type="text" class="form-control" name="tutor1_nombre">
                         </div>
 
-                    </form>
+                        <div class="col-md-4">
+                            <label class="form-label">Telèfon</label>
+                            <input type="text" class="form-control" name="tutor1_telefono">
+                        </div>
 
-                </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Email</label>
+                            <input type="email" class="form-control" name="tutor1_email">
+                        </div>
+
+                    </div>
+
+                    <div class="row mb-3">
+
+                        <div class="col-md-4">
+                            <label class="form-label">Nom tutor/a 2</label>
+                            <input type="text" class="form-control" name="tutor2_nombre">
+                        </div>
+
+                        <div class="col-md-4">
+                            <label class="form-label">Telèfon</label>
+                            <input type="text" class="form-control" name="tutor2_telefono">
+                        </div>
+
+                        <div class="col-md-4">
+                            <label class="form-label">Email</label>
+                            <input type="email" class="form-control" name="tutor2_email">
+                        </div>
+
+                    </div>
+
+                    <!-- CIRCUNSTANCIAS -->
+                    <h5 class="mt-4 mb-3">Circumstàncies personals</h5>
+
+                    <div class="mb-3">
+                        <textarea class="form-control" rows="3" name="circunstancias"></textarea>
+                    </div>
+
+                    <!-- AUTORIZACIÓN -->
+                    <h5 class="mt-4 mb-3">Autorització informació pares</h5>
+
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="autoriza_info" value="si">
+                        <label class="form-check-label">Sí</label>
+                    </div>
+
+                    <div class="form-check mb-4">
+                        <input class="form-check-input" type="radio" name="autoriza_info" value="no">
+                        <label class="form-check-label">No</label>
+                    </div>
+
+                    <div class="text-end">
+                        <button class="btn btn-primary">
+                            Guardar i continuar
+                        </button>
+                    </div>
+
+                </form>
 
             </div>
         </div>
 
     </div>
-
-
 
 </body>
 

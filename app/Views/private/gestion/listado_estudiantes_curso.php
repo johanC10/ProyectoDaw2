@@ -24,6 +24,7 @@
 
         body {
             background-color: var(--bg-page);
+            background-color: var(--bg-page);
             color: var(--text-main);
             font-family: system-ui, -apple-system, sans-serif;
         }
@@ -76,6 +77,8 @@
         .table-card {
             background-color: var(--bg-surface);
             border: 1px solid var(--border-light);
+            background-color: var(--bg-surface);
+            border: 1px solid var(--border-light);
             border-radius: 12px;
             overflow: hidden;
             box-shadow: 0 4px 6px rgba(0,0,0,0.02);
@@ -93,6 +96,7 @@
         .custom-table td {
             padding: 1rem 1.5rem;
             vertical-align: middle;
+            border-bottom: 1px solid var(--border-light);
             border-bottom: 1px solid var(--border-light);
             color: var(--text-main);
         }
@@ -174,6 +178,13 @@
                 <div class="text-sub small">Total Sol·licituds</div>
             </div>
         </div>
+
+        <?php if (session()->getFlashdata('success')): ?>
+            <div class="alert alert-success alert-dismissible fade show border-0 shadow-sm" role="alert">
+                <i class="bi bi-check-circle-fill me-2"></i> <?= session()->getFlashdata('success') ?>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        <?php endif; ?>
 
         <div class="d-flex justify-content-between align-items-center mb-4">
             <h4 class="fw-bold mb-0">Llistat d'Alumnes</h4>

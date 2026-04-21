@@ -15,7 +15,7 @@
             height: 100vh;
             display: flex;
             align-items: center;
-            justify-content: center; 
+            justify-content: center;
         }
 
         .login-card {
@@ -62,12 +62,14 @@
     </style>
 </head>
 
+
 <body>
 
     <div class="card shadow login-card border-0">
 
         <div class="icon-circle">
-            <img src="<?= base_url('assets/img/logomini.png') ?>" alt="Logo" style="width: 80px; height: 80px; position: absolute; border-radius: 50%;">
+            <img src="<?= base_url('assets/img/logomini.png') ?>" alt="Logo"
+                style="width: 80px; height: 80px; position: absolute; border-radius: 50%;">
         </div>
 
         <h3 class="text-center fw-bold">Iniciar Sesión</h3>
@@ -78,6 +80,12 @@
         <?php if (session()->getFlashdata('error')): ?>
             <div class="alert alert-danger border-0 rounded-3">
                 <?= session()->getFlashdata('error') ?>
+            </div>
+        <?php endif; ?>
+
+        <?php if (session()->getFlashdata('success')): ?>
+            <div class="alert alert-success border-0 rounded-3">
+                <?= session()->getFlashdata('success') ?>
             </div>
         <?php endif; ?>
 
@@ -100,9 +108,17 @@
                 </button>
             </div>
 
+            <div class="text-end mb-4">
+                <a href="#" class="text-sub small text-decoration-none" data-bs-toggle="modal"
+                    data-bs-target="#recoverModal">
+                    <?= lang('LoginAdmin.olvido_pass') ?? '¿Problemas con el alta o la contraseña?' ?>
+                </a>
+            </div>
+
         </form>
 
     </div>
 
 </body>
+
 </html>

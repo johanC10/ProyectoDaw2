@@ -20,10 +20,12 @@ $routes->get('/logout', 'Auth_estudiantes::logout');
 // --- Secretaria ---
 $routes->get('/auth/secretaria', 'Auth_secretaria::loginSecretaria');
 $routes->post('/process_login_secretaria', 'Auth_secretaria::processLoginSecretaria');
+$routes->post('/recover_password_secretaria', 'Auth_secretaria::recoverPassword');
 $routes->get('/validar_secretaria', 'Auth_secretaria::validarSecretaria');
 
 // --- Grupo protegido (Formulario) ---
 $routes->group('formulario', ['filter' => 'authEstudiante'], function ($routes) {
+    // Vistas
     $routes->get('paso1', 'Formulario::paso1');
     $routes->get('paso2', 'Formulario::paso2');
     $routes->get('paso3', 'Formulario::paso3');

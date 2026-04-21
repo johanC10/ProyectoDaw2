@@ -2,6 +2,8 @@
 
 namespace App\Controllers;
 
+use App\Controllers\BaseController;
+
 class Auth_estudiantes extends BaseController
 {
     public function loginEstudiante()
@@ -55,7 +57,8 @@ class Auth_estudiantes extends BaseController
 
     public function logout()
     {
-        session()->destroy();
-        return redirect()->to('/auth/estudiante');
+        session()->remove('estudiante_validado');
+        session()->remove('wizard_data');
+        return redirect()->to('/inicio')->with('success', 'Has tancat la sessió de forma segura.');
     }
 }

@@ -6,11 +6,11 @@
     <title>Dashboard Secretaría - Institut Caparrella</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
-    
+
     <style>
         /* Variables Globales de Color */
         :root {
-            --brand-primary: #6d79ce; 
+            --brand-primary: #6d79ce;
             --brand-hover: #5b66b8;
             --brand-success: #24c87e;
             --brand-warning: #f5a623;
@@ -26,9 +26,15 @@
             color: var(--text-main);
             font-family: system-ui, -apple-system, sans-serif;
         }
-        .text-sub { color: var(--text-secondary); }
-        .text-brand { color: var(--brand-primary); }
-        
+
+        .text-sub {
+            color: var(--text-secondary);
+        }
+
+        .text-brand {
+            color: var(--brand-primary);
+        }
+
         /* Barra de navegación superior */
         .top-navbar {
             background-color: var(--bg-surface);
@@ -38,6 +44,7 @@
             justify-content: space-between;
             align-items: center;
         }
+
         .btn-logout {
             color: #ef233c;
             border: 1px solid #ef233c;
@@ -47,7 +54,11 @@
             text-decoration: none;
             transition: all 0.2s;
         }
-        .btn-logout:hover { background-color: #ef233c; color: #ffffff; }
+
+        .btn-logout:hover {
+            background-color: #ef233c;
+            color: #ffffff;
+        }
 
         /* Tarjetas de Estadísticas Globales */
         .stat-card {
@@ -58,8 +69,9 @@
             display: flex;
             align-items: center;
             gap: 1rem;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02);
         }
+
         .stat-icon {
             width: 50px;
             height: 50px;
@@ -69,9 +81,21 @@
             justify-content: center;
             font-size: 1.5rem;
         }
-        .icon-blue { background-color: rgba(109, 121, 206, 0.1); color: var(--brand-primary); }
-        .icon-orange { background-color: rgba(245, 166, 35, 0.1); color: var(--brand-warning); }
-        .icon-green { background-color: rgba(36, 200, 126, 0.1); color: var(--brand-success); }
+
+        .icon-blue {
+            background-color: rgba(109, 121, 206, 0.1);
+            color: var(--brand-primary);
+        }
+
+        .icon-orange {
+            background-color: rgba(245, 166, 35, 0.1);
+            color: var(--brand-warning);
+        }
+
+        .icon-green {
+            background-color: rgba(36, 200, 126, 0.1);
+            color: var(--brand-success);
+        }
 
         /* Tarjetas de Cursos */
         .course-card {
@@ -86,30 +110,69 @@
             color: var(--text-main);
             transition: all 0.2s ease;
         }
+
         .course-card:hover {
             transform: translateY(-3px);
             border-color: var(--brand-primary);
             box-shadow: 0 6px 12px rgba(109, 121, 206, 0.1);
         }
-        
+
         .badge-pending {
             background-color: rgba(245, 166, 35, 0.15);
             color: #d48a1b;
             border: 1px solid rgba(245, 166, 35, 0.3);
         }
+
         .badge-ok {
             background-color: rgba(36, 200, 126, 0.15);
             color: #1e9d63;
         }
-        
+
         .etapa-header {
             border-bottom: 2px solid var(--border-light);
             padding-bottom: 0.5rem;
             margin-bottom: 1.5rem;
             margin-top: 3rem;
         }
+
+        /* Botón de anclaje (Pin) */
+        .btn-pin {
+            position: absolute;
+            top: -12px;
+            right: -12px;
+            background: white;
+            border: 1px solid var(--border-light);
+            border-radius: 50%;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            transition: all 0.2s;
+            z-index: 10;
+        }
+
+        .btn-pin:hover {
+            color: var(--brand-primary);
+            transform: scale(1.1);
+        }
+
+        .btn-pin.pinned {
+            background: #5b66b8;
+            color: white;
+            border-color: #5b66b8;
+        }
+
+        .btn-pin i {
+            display: inline-block;
+            transition: transform 0.3s ease;
+        }
     </style>
 </head>
+
 <body>
 
     <header class="top-navbar shadow-sm sticky-top">
@@ -126,7 +189,18 @@
     </header>
 
     <main class="container py-4">
-        
+
+        <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-4">
+            <h4 class="fw-bold mb-3 mb-md-0 text-brand"><i class="bi bi-grid-1x2 me-2"></i>
+                <?= lang('Dashboard.vista_general') ?? 'Vista General' ?>
+            </h4>
+            <div class="input-group shadow-sm" style="max-width: 350px;">
+                <span class="input-group-text bg-white border-end-0"><i class="bi bi-search text-muted"></i></span>
+                <input type="text" id="searchInput" class="form-control border-start-0 ps-0"
+                    placeholder="<?= lang('Dashboard.buscar_ph') ?? 'Buscar formación...' ?>">
+            </div>
+        </div>
+
         <div class="row g-4 mb-2">
             <div class="col-md-4">
                 <div class="stat-card">
@@ -154,6 +228,19 @@
                         <h3 class="fw-bold mb-0">718</h3>
                     </div>
                 </div>
+            </div>
+        </div>
+
+        <!-- SECCIÓN DE FAVORITOS (ANCLADOS) -->
+        <div id="favorites-section" style="display: none;">
+            <div class="etapa-header d-flex justify-content-between align-items-end" style="margin-top: 2rem;">
+                <h4 class="fw-bold mb-0" style="color: #5b66b8;">
+                    <i class="bi bi-pin-angle-fill me-2" style="display: inline-block;"></i>
+                    <?= lang('Dashboard.formaciones_ancladas') ?? 'Formaciones Ancladas' ?>
+                </h4>
+            </div>
+            <div class="row g-3" id="favorites-container">
+                <!-- Se llenará con JS -->
             </div>
         </div>
 
@@ -303,5 +390,89 @@
     </main>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Logica para Anclar (Favorites) en LocalStorage
+        const userId = '<?= esc(session()->get('secretaria_id') ?? 'guest') ?>';
+        const storageKey = 'pinned_courses_' + userId;
+
+        function getPinned() {
+            return JSON.parse(localStorage.getItem(storageKey) || '[]');
+        }
+
+        function setPinned(arr) {
+            localStorage.setItem(storageKey, JSON.stringify(arr));
+        }
+
+        function togglePin(id, event) {
+            event.preventDefault();
+            event.stopPropagation();
+            let pinned = getPinned();
+            if (pinned.includes(id)) {
+                pinned = pinned.filter(p => p !== id);
+            } else {
+                pinned.push(id);
+            }
+            setPinned(pinned);
+            renderPins();
+        }
+
+        function renderPins() {
+            let pinned = getPinned();
+            // Buscar todos los cursos que no esten en el contenedor de favoritos
+            const allCourses = Array.from(document.querySelectorAll('.course-item')).filter(el => !el.closest('#favorites-container'));
+            const favContainer = document.getElementById('favorites-container');
+            const favSection = document.getElementById('favorites-section');
+
+            favContainer.innerHTML = '';
+            let hasPins = false;
+
+            allCourses.forEach(el => {
+                const id = parseInt(el.getAttribute('data-id'));
+                const btn = el.querySelector('.btn-pin');
+
+                if (pinned.includes(id)) {
+                    btn.classList.add('pinned');
+                    const clone = el.cloneNode(true);
+                    // Actualizar el estado del pin del clon para que muestre que está anclado visualmente
+                    clone.querySelector('.btn-pin').classList.add('pinned');
+                    favContainer.appendChild(clone);
+                    hasPins = true;
+                } else {
+                    btn.classList.remove('pinned');
+                }
+            });
+
+            favSection.style.display = hasPins ? 'block' : 'none';
+        }
+
+        // Search Filter (Buscador instantáneo)
+        document.getElementById('searchInput').addEventListener('input', function (e) {
+            const term = e.target.value.toLowerCase().trim();
+            // Evitar conflictos con el clon filtrando solo los principales (o filtrar ambos)
+            document.querySelectorAll('.course-item').forEach(el => {
+                const name = el.getAttribute('data-name');
+                if (name.includes(term)) {
+                    el.style.display = 'block';
+                } else {
+                    el.style.display = 'none';
+                }
+            });
+
+            // Ocultar cabeceras de Etapa si no hay cursos visibles dentro
+            document.querySelectorAll('.etapa-header').forEach(header => {
+                if (header.closest('#favorites-section')) return; // ignorar favoritos
+
+                const nextRow = header.nextElementSibling;
+                if (nextRow && nextRow.classList.contains('row')) {
+                    const visibleItems = nextRow.querySelectorAll('.course-item[style="display: block;"], .course-item:not([style*="display: none"])');
+                    header.style.display = visibleItems.length === 0 ? 'none' : 'flex';
+                }
+            });
+        });
+
+        // Al cargar la pantalla, mostramos los anclados
+        document.addEventListener('DOMContentLoaded', renderPins);
+    </script>
 </body>
+
 </html>
