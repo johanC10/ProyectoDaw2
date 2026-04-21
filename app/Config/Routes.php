@@ -22,6 +22,7 @@ $routes->get('/auth/secretaria', 'Auth_secretaria::loginSecretaria');
 $routes->post('/process_login_secretaria', 'Auth_secretaria::processLoginSecretaria');
 $routes->post('/recover_password_secretaria', 'Auth_secretaria::recoverPassword');
 $routes->get('/validar_secretaria', 'Auth_secretaria::validarSecretaria');
+$routes->get('/logout_secretaria', 'Auth_secretaria::logout');
 
 // --- Grupo protegido (Formulario) ---
 $routes->group('formulario', ['filter' => 'authEstudiante'], function ($routes) {
@@ -31,6 +32,7 @@ $routes->group('formulario', ['filter' => 'authEstudiante'], function ($routes) 
     $routes->get('paso3', 'Formulario::paso3');
     $routes->get('paso4', 'Formulario::paso4');
     $routes->get('paso5', 'Formulario::paso5');
+});
 
     // --- GRUPO PROTEGIDO DE SECRETARÍA ---
     $routes->group('private', ['filter' => 'authSecretaria'], function ($routes) {

@@ -183,8 +183,8 @@
             <h5 class="mb-0 fw-bold">Secretaría | <span class="text-sub fw-normal">Institut Caparrella</span></h5>
         </div>
         <div class="d-flex align-items-center gap-4">
-            <span class="text-sub"><i class="bi bi-person-circle me-1"></i> Admin_Secretaria</span>
-            <a href="<?= base_url('logout') ?>" class="btn-logout"><i class="bi bi-box-arrow-right me-1"></i> Salir</a>
+            <span class="text-sub"><i class="bi bi-person-circle me-1"></i> Admin</span>
+            <a href="<?= base_url('logout_secretaria') ?>" class="btn-logout"><i class="bi bi-box-arrow-right me-1"></i> Salir</a>
         </div>
     </header>
 
@@ -250,7 +250,7 @@
         </div>
         <div class="row g-3">
             <div class="col-md-6 col-lg-3">
-                <a href="<?= base_url('private/curso/eso/1') ?>" class="course-card">
+                <a href="<?= base_url('private/curso/1') ?>" class="course-card">
                     <div>
                         <h6 class="fw-bold mb-1">1r d'ESO</h6>
                         <small class="text-sub">90 Alumnes</small>
@@ -259,7 +259,7 @@
                 </a>
             </div>
             <div class="col-md-6 col-lg-3">
-                <a href="<?= base_url('private/curso/eso/2') ?>" class="course-card">
+                <a href="<?= base_url('private/curso/2') ?>" class="course-card">
                     <div>
                         <h6 class="fw-bold mb-1">2n d'ESO</h6>
                         <small class="text-sub">85 Alumnes</small>
@@ -268,7 +268,7 @@
                 </a>
             </div>
             <div class="col-md-6 col-lg-3">
-                <a href="<?= base_url('private/curso/eso/3') ?>" class="course-card">
+                <a href="<?= base_url('private/curso/3') ?>" class="course-card">
                     <div>
                         <h6 class="fw-bold mb-1">3r d'ESO</h6>
                         <small class="text-sub">88 Alumnes</small>
@@ -277,7 +277,7 @@
                 </a>
             </div>
             <div class="col-md-6 col-lg-3">
-                <a href="<?= base_url('private/curso/eso/4') ?>" class="course-card">
+                <a href="<?= base_url('private/curso/4') ?>" class="course-card">
                     <div>
                         <h6 class="fw-bold mb-1">4t d'ESO</h6>
                         <small class="text-sub">82 Alumnes</small>
@@ -293,7 +293,7 @@
         </div>
         <div class="row g-3">
             <div class="col-md-6">
-                <a href="<?= base_url('private/curso/bat/1') ?>" class="course-card">
+                <a href="<?= base_url('private/curso/5') ?>" class="course-card">
                     <div>
                         <h6 class="fw-bold mb-1">1r de Batxillerat</h6>
                         <small class="text-sub">60 Alumnes</small>
@@ -302,7 +302,7 @@
                 </a>
             </div>
             <div class="col-md-6">
-                <a href="<?= base_url('private/curso/bat/2') ?>" class="course-card">
+                <a href="<?= base_url('private/curso/6') ?>" class="course-card">
                     <div>
                         <h6 class="fw-bold mb-1">2n de Batxillerat</h6>
                         <small class="text-sub">55 Alumnes</small>
@@ -318,7 +318,7 @@
         </div>
         <div class="row g-3">
             <div class="col-md-6 col-lg-4">
-                <a href="<?= base_url('private/curso/cfgm/preimpressio') ?>" class="course-card">
+                <a href="<?= base_url('private/curso/7') ?>" class="course-card">
                     <div>
                         <h6 class="fw-bold mb-1">Preimpressió digital</h6>
                         <small class="text-sub">Arts Gràfiques</small>
@@ -327,7 +327,7 @@
                 </a>
             </div>
             <div class="col-md-6 col-lg-4">
-                <a href="<?= base_url('private/curso/cfgm/electromecanica') ?>" class="course-card">
+                <a href="<?= base_url('private/curso/8') ?>" class="course-card">
                     <div>
                         <h6 class="fw-bold mb-1">Electromecànica de vehicles</h6>
                         <small class="text-sub">Automoció</small>
@@ -336,7 +336,7 @@
                 </a>
             </div>
             <div class="col-md-6 col-lg-4">
-                <a href="<?= base_url('private/curso/cfgm/video-dj') ?>" class="course-card">
+                <a href="<?= base_url('private/curso/9') ?>" class="course-card">
                     <div>
                         <h6 class="fw-bold mb-1">Vídeo, discjòquei i so</h6>
                         <small class="text-sub">Imatge i So</small>
@@ -352,7 +352,7 @@
         </div>
         <div class="row g-3">
             <div class="col-md-6 col-lg-6">
-                <a href="<?= base_url('private/curso/cfgs/daw') ?>" class="course-card">
+                <a href="<?= base_url('private/curso/10') ?>" class="course-card">
                     <div>
                         <h6 class="fw-bold mb-1">Desenvolupament d'Aplicacions Web (DAW)</h6>
                         <small class="text-sub">Informàtica i Comunicacions</small>
@@ -361,7 +361,7 @@
                 </a>
             </div>
             <div class="col-md-6 col-lg-6">
-                <a href="<?= base_url('private/curso/cfgs/automocio') ?>" class="course-card">
+                <a href="<?= base_url('private/curso/11') ?>" class="course-card">
                     <div>
                         <h6 class="fw-bold mb-1">Automoció</h6>
                         <small class="text-sub">Transport i Manteniment de Vehicles</small>
@@ -377,7 +377,7 @@
         </div>
         <div class="row g-3">
             <div class="col-md-6 col-lg-6">
-                <a href="<?= base_url('private/curso/fp-basica/informatica') ?>" class="course-card">
+                <a href="<?= base_url('private/curso/12') ?>" class="course-card">
                     <div>
                         <h6 class="fw-bold mb-1">Informàtica d'oficina</h6>
                         <small class="text-sub">FP Bàsica</small>
