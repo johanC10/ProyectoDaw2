@@ -1,28 +1,4 @@
-<?php
-// --- SIMULACIÓN DE BASE DE DATOS ---
-$alumnos = [
-    [
-        'id_matricula' => 15,
-        'dni' => '12345678A',
-        'num_matricula' => '#MAT-2026-0015',
-        'nombre' => 'García Pérez, Laura',
-        'email' => 'laura.garcia@email.com',
-        'fecha' => '25/02/2026',
-        'estat' => 'pendent',
-        'docs' => ['dni' => true, 'tsi' => true, 'pagament' => false]
-    ],
-    [
-        'id_matricula' => 8,
-        'dni' => '87654321B',
-        'num_matricula' => '#MAT-2026-0008',
-        'nombre' => 'Martínez Costa, Marc',
-        'email' => 'marc.mart@email.com',
-        'fecha' => '23/02/2026',
-        'estat' => 'validat',
-        'docs' => ['dni' => true, 'tsi' => true, 'pagament' => true]
-    ]
-];
-?>
+
 <!DOCTYPE html>
 <html lang="<?= service('request')->getLocale() ?>">
 
@@ -36,34 +12,33 @@ $alumnos = [
 
     <style>
         :root {
-            --bg-body: #f8fafc;
-            --bg-card: #ffffff;
-            --text-main: #0f172a;
-            --text-muted: #64748b;
-            --border-color: #e2e8f0;
-
-            --color-primary: #3b82f6;
-            --color-primary-hover: #2563eb;
-            --color-success: #10b981;
-            --color-warning: #f59e0b;
-            --color-danger: #ef4444;
-            --color-light: #f1f5f9;
+            --brand-primary: #6d79ce; 
+            --brand-hover: #5b66b8;
+            --brand-success: #24c87e;
+            --brand-warning: #f5a623;
+            --bg-page: #f4f6f9;
+            --bg-surface: #ffffff;
+            --text-main: #2b2d42;
+            --text-secondary: #8d99ae;
+            --border-light: #edf2f4;
         }
 
         body {
-            background-color: var(--bg-body);
+            background-color: var(--bg-page);
             color: var(--text-main);
             font-family: system-ui, -apple-system, sans-serif;
         }
 
+        .text-muted, .text-sub { color: var(--text-secondary) !important; }
+        
         .top-navbar {
-            background-color: var(--bg-card);
-            border-bottom: 1px solid var(--border-color);
+            background-color: var(--bg-surface);
+            border-bottom: 1px solid var(--border-light);
             padding: 0.75rem 2rem;
         }
 
         .btn-logout {
-            color: var(--color-danger);
+            color: #ef233c;
             text-decoration: none;
             font-weight: 500;
             padding: 0.3rem 0.8rem;
@@ -88,11 +63,11 @@ $alumnos = [
         }
 
         .btn-back:hover {
-            color: var(--color-primary);
+            color: var(--brand-primary);
         }
 
         .btn-create {
-            background-color: var(--color-primary);
+            background-color: var(--brand-primary);
             color: #ffffff;
             border: none;
             padding: 0.6rem 1.2rem;
@@ -106,13 +81,13 @@ $alumnos = [
         }
 
         .btn-create:hover {
-            background-color: var(--color-primary-hover);
+            background-color: var(--brand-hover);
             color: #ffffff;
         }
 
         .filter-panel {
-            background-color: var(--bg-card);
-            border: 1px solid var(--border-color);
+            background-color: var(--bg-surface);
+            border: 1px solid var(--border-light);
             border-radius: 12px;
             padding: 1.25rem;
             margin-bottom: 1.5rem;
@@ -120,39 +95,39 @@ $alumnos = [
         }
 
         .custom-input {
-            border: 1px solid var(--border-color);
+            border: 1px solid var(--border-light);
             border-radius: 8px;
-            background-color: var(--bg-body);
+            background-color: var(--bg-page);
         }
 
         .custom-input:focus {
-            border-color: var(--color-primary);
-            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+            border-color: var(--brand-primary);
+            box-shadow: 0 0 0 3px rgba(109, 121, 206, 0.1);
         }
 
         .table-card {
-            background-color: var(--bg-card);
-            border: 1px solid var(--border-color);
+            background-color: var(--bg-surface);
+            border: 1px solid var(--border-light);
             border-radius: 12px;
             overflow: hidden;
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
         }
 
         .table th {
-            background-color: var(--color-light);
-            color: var(--text-muted);
+            background-color: var(--bg-page);
+            color: var(--text-secondary);
             font-weight: 600;
             font-size: 0.85rem;
             text-transform: uppercase;
             letter-spacing: 0.5px;
             padding: 1rem 1.5rem;
-            border-bottom: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-light);
         }
 
         .table td {
             padding: 1rem 1.5rem;
             vertical-align: middle;
-            border-bottom: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-light);
             color: var(--text-main);
         }
 
@@ -161,7 +136,7 @@ $alumnos = [
         }
 
         .table tbody tr:hover {
-            background-color: var(--color-light);
+            background-color: var(--bg-page);
         }
 
         .status-badge {
@@ -181,8 +156,13 @@ $alumnos = [
             color: #059669;
         }
 
+        .bg-rejected {
+            background-color: #fee2e2;
+            color: #dc2626;
+        }
+
         .action-link {
-            color: var(--color-primary);
+            color: var(--brand-primary);
             font-weight: 500;
             text-decoration: none;
             padding: 0.4rem 0.8rem;
@@ -191,7 +171,7 @@ $alumnos = [
         }
 
         .action-link:hover {
-            background-color: #eff6ff;
+            background-color: rgba(109, 121, 206, 0.1);
         }
     </style>
 </head>
@@ -200,7 +180,8 @@ $alumnos = [
 
     <header class="top-navbar d-flex justify-content-between align-items-center sticky-top">
         <div class="d-flex align-items-center gap-2">
-            <h5 class="mb-0 fw-bold"><?= lang('Dashboard.header_secretaria') ?> | <span class="text-muted fw-normal">Institut Caparrella</span></h5>
+            <img src="<?= base_url('assets/img/logomini.png') ?>" alt="Logo Institut Caparrella" style="width: 40px; height: auto;">
+            <h5 class="mb-0 fw-bold ms-2"><?= lang('Dashboard.header_secretaria') ?> | <span class="text-muted fw-normal">Institut Caparrella</span></h5>
         </div>
         <div class="d-flex align-items-center gap-4">
             
@@ -217,52 +198,64 @@ $alumnos = [
 
             <div class="d-none d-md-block" style="width: 1px; height: 24px; background-color: var(--border-color);"></div>
 
-            <span class="text-muted d-none d-md-inline"><i class="bi bi-person-circle me-1"></i> Admin</span>
+            <span class="text-muted d-none d-md-inline"><i class="bi bi-person-circle me-1"></i> <?= esc(session()->get('secretaria_name') ?? 'Admin') ?></span>
             <a href="<?= base_url('logout_secretaria') ?>" class="btn-logout"><i class="bi bi-box-arrow-right me-1"></i> <?= lang('Dashboard.btn_salir') ?></a>
         </div>
     </header>
 
     <main class="container">
 
-        <div class="header-section d-flex justify-content-between align-items-center">
+        <div class="header-section d-flex justify-content-between align-items-center mb-0 pb-3">
             <div class="d-flex align-items-center">
                 <a href="<?= base_url('private/dashboard') ?>" class="btn-back"><i class="bi bi-arrow-left"></i></a>
                 <div>
-                    <h2 class="fw-bold mb-0"><?= lang('Cursos.curso_' . $id_curso) ?></h2>
+                    <?php 
+                        $langKey = 'Cursos.' . $curso['nom_curs'];
+                        $translate = lang($langKey);
+                        $finalName = ($translate === $langKey) ? ucfirst(str_replace('_', ' ', $curso['nom_curs'])) : $translate;
+                    ?>
+                    <h2 class="fw-bold mb-0"><?= esc($finalName) ?></h2>
                     <span class="text-muted small"><?= lang('ListadoMatriculas.subtitulo') ?></span>
                 </div>
             </div>
-            <div>
+            <div class="d-flex gap-2">
+                <a href="<?= base_url('private/papelera') ?>" class="btn btn-outline-danger shadow-sm d-flex align-items-center">
+                    <i class="bi bi-trash3 me-2"></i> <?= lang('ListadoMatriculas.btn_papelera') ?? 'Papelera' ?>
+                </a>
                 <a href="<?= base_url('private/matricula/crear/' . $id_curso) ?>" class="btn-create shadow-sm">
                     <i class="bi bi-plus-lg"></i> <?= lang('ListadoMatriculas.btn_nova') ?>
                 </a>
             </div>
         </div>
 
+        <?php if (session()->getFlashdata('success')): ?>
+            <div class="alert alert-success alert-dismissible fade show border-0 shadow-sm" role="alert">
+                <i class="bi bi-check-circle-fill me-2"></i> <?= session()->getFlashdata('success') ?>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        <?php endif; ?>
+
         <div class="filter-panel">
             <form action="" method="get">
                 <div class="row g-3 align-items-end">
                     <div class="col-md-4">
                         <label class="form-label text-muted small fw-semibold mb-1"><?= lang('ListadoMatriculas.filtro_cercar') ?></label>
-                        <div class="input-group">
-                            <span class="input-group-text bg-light border-end-0 text-muted"><i class="bi bi-search"></i></span>
-                            <input type="text" name="q" class="form-control custom-input border-start-0 ps-0" placeholder="<?= lang('ListadoMatriculas.placeholder_cercar') ?>">
-                        </div>
+                        <input type="text" name="q" value="<?= esc(service('request')->getGet('q')) ?>" class="form-control custom-input" placeholder="<?= lang('ListadoMatriculas.placeholder_cercar') ?>">
                     </div>
 
                     <div class="col-md-3">
                         <label class="form-label text-muted small fw-semibold mb-1"><?= lang('ListadoMatriculas.filtro_estat') ?></label>
                         <select name="estat" class="form-select custom-input">
                             <option value=""><?= lang('ListadoMatriculas.opcion_tots') ?></option>
-                            <option value="pendent"><?= lang('ListadoMatriculas.opcion_pendent') ?></option>
-                            <option value="validat"><?= lang('ListadoMatriculas.opcion_validat') ?></option>
-                            <option value="rebutjat"><?= lang('ListadoMatriculas.opcion_rebutjat') ?></option>
+                            <option value="pendent" <?= service('request')->getGet('estat') === 'pendent' ? 'selected' : '' ?>><?= lang('ListadoMatriculas.opcion_pendent') ?></option>
+                            <option value="validat" <?= service('request')->getGet('estat') === 'validat' ? 'selected' : '' ?>><?= lang('ListadoMatriculas.opcion_validat') ?></option>
+                            <option value="rebutjat" <?= service('request')->getGet('estat') === 'rebutjat' ? 'selected' : '' ?>><?= lang('ListadoMatriculas.opcion_rebutjat') ?></option>
                         </select>
                     </div>
 
                     <div class="col-md-3">
                         <label class="form-label text-muted small fw-semibold mb-1"><?= lang('ListadoMatriculas.filtro_data') ?></label>
-                        <input type="date" name="data" class="form-control custom-input">
+                        <input type="date" name="data" value="<?= esc(service('request')->getGet('data')) ?>" class="form-control custom-input">
                     </div>
 
                     <div class="col-md-2">
@@ -312,15 +305,20 @@ $alumnos = [
                             </td>
                             <td>
                                 <?php if ($alumne['estat'] === 'pendent'): ?>
-                                    <span class="status-badge bg-pending"><?= lang('ListadoMatriculas.badge_pendent') ?></span>
+                                    <span class="status-badge bg-pending"><?= lang('ListadoMatriculas.badge_pendent') ?? 'Pendent' ?></span>
+                                <?php elseif ($alumne['estat'] === 'validat'): ?>
+                                    <span class="status-badge bg-valid"><?= lang('ListadoMatriculas.badge_validada') ?? 'Validada' ?></span>
                                 <?php else: ?>
-                                    <span class="status-badge bg-valid"><?= lang('ListadoMatriculas.badge_validada') ?></span>
+                                    <span class="status-badge bg-rejected"><?= lang('ListadoMatriculas.badge_rebutjada') ?? 'Rebutjada' ?></span>
                                 <?php endif; ?>
                             </td>
                             <td class="text-end">
-                                <a href="<?= base_url('private/validacion/' . $alumne['id_matricula']) ?>" class="action-link <?= $alumne['estat'] === 'validat' ? 'text-muted' : '' ?>">
-                                    <?= $alumne['estat'] === 'pendent' ? lang('ListadoMatriculas.accion_revisar') : lang('ListadoMatriculas.accion_veure') ?> 
+                                <a href="<?= base_url('private/validacion/' . $alumne['id_matricula']) ?>" class="action-link <?= $alumne['estat'] === 'validat' ? 'text-muted' : '' ?>" title="Revisar ficha">
+                                    <?= $alumne['estat'] === 'pendent' ? lang('ListadoMatriculas.accion_revisar') ?? 'Revisar' : lang('ListadoMatriculas.accion_veure') ?? 'Ver' ?> 
                                     <i class="bi bi-chevron-right ms-1 small"></i>
+                                </a>
+                                <a href="<?= base_url('private/matricula/archivar/' . $alumne['id_matricula']) ?>" class="btn btn-sm text-danger ms-2" title="<?= lang('ListadoMatriculas.tooltip_papelera') ?? 'Mover a la papelera' ?>" onclick="return confirm('<?= lang('ListadoMatriculas.confirm_papelera') ?? '¿Seguro que deseas mover esta matrícula a la papelera?' ?>');">
+                                    <i class="bi bi-trash3"></i>
                                 </a>
                             </td>
                         </tr>

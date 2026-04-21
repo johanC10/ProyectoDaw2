@@ -23,10 +23,16 @@ return [
     
     'badge_pendent' => 'Pendiente',
     'badge_validada' => 'Validada',
+    'badge_rebutjada' => 'Rechazada',
     'accion_revisar' => 'Revisar',
     'accion_veure' => 'Ver Ficha',
     
     'tooltip_dni' => 'DNI Adjuntado',
     'tooltip_tsi' => 'TSI Adjuntada',
     'tooltip_pagament' => 'Pago Adjuntado',
+
+    // Papelera
+    'btn_papelera' => 'Papelera',
+    'tooltip_papelera' => 'Mover a la papelera',
+    'confirm_papelera' => '¿Seguro que deseas mover esta matrícula a la papelera?',
 ];

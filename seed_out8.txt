@@ -1,0 +1,57 @@
+﻿
+CodeIgniter v4.7.0 Command Line Tool - Server Time: 2026-03-25 21:51:07 UTC+00:00
+
+[CodeIgniter\Database\Exceptions\DatabaseException]
+Unknown column 'id_etapa' in 'field list'
+at SYSTEMPATH\Database\BaseConnection.php:724
+
+  Caused by:
+  [CodeIgniter\Database\Exceptions\DatabaseException]
+  Unknown column 'id_etapa' in 'field list'
+  at SYSTEMPATH\Database\MySQLi\Connection.php:310
+
+  Caused by:
+  [mysqli_sql_exception]
+  Unknown column 'id_etapa' in 'field list'
+  at SYSTEMPATH\Database\MySQLi\Connection.php:300
+
+Backtrace:
+  1    SYSTEMPATH\Database\MySQLi\Connection.php:300
+       mysqli()->query('INSERT INTO `cursos` (`id_etapa`, `nom_curs`, `familia_profesional`) VALUES (1, \'1r ESO\', NULL)', 0)
+
+  2    SYSTEMPATH\Database\BaseConnection.php:769
+       CodeIgniter\Database\MySQLi\Connection()->execute('INSERT INTO `cursos` (`id_etapa`, `nom_curs`, `familia_profesional`) VALUES (1, \'1r ESO\', NULL)')
+
+  3    SYSTEMPATH\Database\BaseConnection.php:686
+       CodeIgniter\Database\BaseConnection()->simpleQuery('INSERT INTO `cursos` (`id_etapa`, `nom_curs`, `familia_profesional`) VALUES (1, \'1r ESO\', NULL)')
+
+  4    SYSTEMPATH\Database\BaseBuilder.php:2345
+       CodeIgniter\Database\BaseConnection()->query('INSERT INTO `cursos` (`id_etapa`, `nom_curs`, `familia_profesional`) VALUES (:id_etapa:, :nom_curs:, :familia_profesional:)', [...], false)
+
+  5    APPPATH\Database\Seeds\MainSeeder.php:141
+       CodeIgniter\Database\BaseBuilder()->insert([...])
+
+  6    APPPATH\Database\Seeds\MainSeeder.php:50
+       App\Database\Seeds\MainSeeder()->insertarEtapa('E.S.O.', [...])
+
+  7    SYSTEMPATH\Database\Seeder.php:155
+       App\Database\Seeds\MainSeeder()->run()
+
+  8    SYSTEMPATH\Commands\Database\Seed.php:79
+       CodeIgniter\Database\Seeder()->call('App\\Database\\Seeds\\MainSeeder')
+
+  9    SYSTEMPATH\CLI\Commands.php:74
+       CodeIgniter\Commands\Database\Seed()->run([])
+
+ 10    SYSTEMPATH\CLI\Console.php:47
+       CodeIgniter\CLI\Commands()->run('db:seed', [...])
+
+ 11    SYSTEMPATH\Boot.php:442
+       CodeIgniter\CLI\Console()->run()
+
+ 12    SYSTEMPATH\Boot.php:166
+       CodeIgniter\Boot::runCommand(Object(CodeIgniter\CLI\Console))
+
+ 13    ROOTPATH\spark:87
+       CodeIgniter\Boot::bootSpark(Object(Config\Paths))
+

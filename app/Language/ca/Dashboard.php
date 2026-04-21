@@ -24,4 +24,10 @@ return [
     
     'label_alumnos' => 'Alumnes',
     'label_puntos' => 'Pnts.', // Abreviatura de Pendents
+
+    // Nuevos elementos UI
+    'vista_general' => 'Vista General',
+    'buscar_ph' => 'Cercar formació (Ex: CFGM, Informàtica)...',
+    'formaciones_ancladas' => 'Formacions Ancorades',
+    'tooltip_pin' => 'Ancorar / Desancorar',
 ];
